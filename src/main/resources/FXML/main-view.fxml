@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="470.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ubb.dbsm.controller.MainController">
+   <children>
+      <VBox prefHeight="470.0" prefWidth="673.0">
+         <children>
+            <HBox prefHeight="319.0" prefWidth="674.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="310.0" prefWidth="287.0">
+                     <children>
+                        <Label text="Manufacturers">
+                           <font>
+                              <Font name="Impact" size="24.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="manufacturerTabableView" onMouseClicked="#populateTanks" prefHeight="281.0" prefWidth="278.0">
+                          <columns>
+                            <TableColumn fx:id="manufacturerIdColumn" prefWidth="68.79998624324799" text="ID" />
+                            <TableColumn fx:id="manufacturerNameColumn" prefWidth="96.00006866455078" text="NAME" />
+                              <TableColumn fx:id="manufacturerCountryColumn" prefWidth="115.20000610351565" text="COUNTRY" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="391.0" prefWidth="366.0">
+                     <children>
+                        <Label text="Tanks">
+                           <font>
+                              <Font name="Impact" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="searchTextField" onKeyPressed="#enterPressed" promptText="Search Tank After Name">
+                           <VBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TableView fx:id="tankTabableView" onMouseClicked="#fillTankTextFields" prefHeight="250.0" prefWidth="352.0">
+                          <columns>
+                            <TableColumn fx:id="tankIdColumn" prefWidth="48.0000017285347" text="ID" />
+                            <TableColumn fx:id="tankNameColumn" prefWidth="90.39996337890625" text="NAME" />
+                              <TableColumn fx:id="tankProductionColumn" prefWidth="86.39999389648438" text="PRODUCTION" />
+                              <TableColumn fx:id="tankManufacturerNameColumn" prefWidth="125.60003662109375" text="MANUFACTURER" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="132.0" prefWidth="674.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </VBox.margin>
+               <children>
+                  <HBox prefHeight="126.0" prefWidth="322.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="126.0" prefWidth="199.0">
+                           <children>
+                              <Button fx:id="addTankButton" mnemonicParsing="false" onAction="#addTank" prefWidth="100.0" text="Add Tank">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="updateTankButton" mnemonicParsing="false" onAction="#updateTank" prefWidth="100.0" text="Update">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="126.0" prefWidth="183.0">
+                           <children>
+                              <Button fx:id="removeTankButton" mnemonicParsing="false" onAction="#removeTank" prefWidth="100.0" text="Remove">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="refreshTables" mnemonicParsing="false" onAction="#refreshTables" prefWidth="100.0" text="Refresh">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="126.0" prefWidth="321.0">
+                     <children>
+                        <TextField fx:id="tankNameTextField" promptText="Tank Name">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="tankProductionTextField" promptText="Year of Production">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="tankManufacturerNameTextField" promptText="Manufacturer">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
