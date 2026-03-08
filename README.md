@@ -14,6 +14,18 @@ This **Database System Manager (DBSM)** handles the core **CRUD operations** req
   <img src=".readme/app_screenshot.png" alt="TankingTanks App Screenshot" width="700" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
 </p>
 
+### 💻 How to run
+1. Create a **SQL Server database** (using SSMS) and execute the SQL script provided below to set up the schema.
+2. Create a `config.properties` file inside the `resources` folder and configure it based on the example below:
+```properties
+# src/main/resources/config.properties
+DB_URL=jdbc:sqlserver://your_pc:1344;databaseName=your_db;encrypt=true;trustServerCertificate=true
+DB_USER=your_username
+DB_PASS=your_password
+```
+3. Make sure your SQL Server instance has TCP/IP enabled and the port is set to 1344 (or modify the DB_URL to match your configured port).
+4. Run the application using Gradle.
+
 ### 💾 Bare minimum code
 ```sql
 CREATE DATABASE TankingTanks
@@ -67,3 +79,15 @@ INSERT INTO tank(tank_name, made_date_year, manufacturer_id) VALUES ('M4 Sherman
 ('P26/40', 1940, 14), ('Type 3 Chi-Nu', 1943, 9), ('Grizzly I', 1943, 24), ('Ram', 1941, 24), ('Type 97 Chi-Ha', 1936, 9),
 ('Merkava', 1970, 10), ('Leopard 2', 1979, 25), ('Carro Armato M13/40', 1939, 14);
 ```
+
+### Design decisions
+1. **Normalized Database Structure** to reduce redundancy.
+2. **Composite Uniqueness for Tank Names** was introduced on `(manufacturer_id, tank_name)` to ensure that a manufacturer cannot have multiple tanks with the same name.
+3. **Surrogate Primary Keys** an auto-incrementing integer ID `(IDENTITY)` as the primary key instead of natural keys. Ensures stable and efficient indexing.
+4. **Configuration via `config.properties`** improves security
+5. **Layered architecture**
+
+### Challenges that I faced
+<p>While making this DBSM the most frequent challenge I faced was my lack of knowledge. From the wierd TCP/IP bugs and error I had from not knowing how to properly configure SSMS and connecting to the database... it took me so long to realise I had SQL authentication off.</p>
+<p>I am happy for all of this because now I know, I've learned and for that I'm a better programmer.</p>
+
