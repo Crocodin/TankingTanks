@@ -89,7 +89,11 @@ INSERT INTO tank(tank_name, made_date_year, manufacturer_id) VALUES ('M4 Sherman
 
 ### Challenges that I faced
 1. While making this DBSM the most frequent challenge I faced was my **lack of knowledge**. From the wierd TCP/IP bugs and error I had from not knowing how to properly configure SSMS and connecting to the database... it took me so long to realise I had SQL authentication off.
-2. The first problem I faced was realising that I don't know the password to the DB. That was fixed by enabling the `super admin` that for whatever reason was not enabled.
-3. The second stupid problem I had was not having the TPC/IP opened on the DB. Did you know that by default is closed? I didn't. To fix this I had to go in the **`SQL Configuration Manager`**. To be able to connect to the DB I set the `IPALL` port to 1344 because when it was dynamic I couldn't connect to it... idk why?
-4. I am happy for all of this because now I know, I've learned and for that I'm a better programmer.
+2. **The first problem I faced** was realising that I don't know the password to the DB. That was fixed by enabling the `super admin` that for whatever reason was not enabled.
+3. A particularly frustrating issue involved **TCP/IP connectivity**. Initially, I was unable to connect to the database remotely, which led me to investigate the network configuration settings. Did you know that by default is closed? I didn't. To fix this I had to go in the **`SQL Configuration Manager`**. To be able to connect to the DB I set the `IPAll` port to 1344. Using a dynamic port caused connection issues that I could not reliably diagnose at the time, but assigning a static port allowed the connection to work consistently.
+<p align="center">
+  <img src=".readme/sql_manager.png" alt="sal manager imagine" width="400" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+</p>
+
+4. **Learning Through Troubleshooting.** Although these problems were frustrating during development, they ultimately became valuable learning experiences. Troubleshooting configuration issues forced me to better understand how SQL Server networking, authentication, and server configuration actually work. As a result, I gained practical knowledge that will help me avoid similar problems in future projects and improve my overall development skills.
 
