@@ -88,6 +88,8 @@ INSERT INTO tank(tank_name, made_date_year, manufacturer_id) VALUES ('M4 Sherman
 5. **Layered architecture**
 
 ### Challenges that I faced
-<p>While making this DBSM the most frequent challenge I faced was my lack of knowledge. From the wierd TCP/IP bugs and error I had from not knowing how to properly configure SSMS and connecting to the database... it took me so long to realise I had SQL authentication off.</p>
-<p>I am happy for all of this because now I know, I've learned and for that I'm a better programmer.</p>
+1. While making this DBSM the most frequent challenge I faced was my **lack of knowledge**. From the wierd TCP/IP bugs and error I had from not knowing how to properly configure SSMS and connecting to the database... it took me so long to realise I had SQL authentication off.
+2. The first problem I faced was realising that I don't know the password to the DB. That was fixed by enabling the `super admin` that for whatever reason was not enabled.
+3. The second stupid problem I had was not having the TPC/IP opened on the DB. Did you know that by default is closed? I didn't. To fix this I had to go in the **`SQL Configuration Manager`**. To be able to connect to the DB I set the `IPALL` port to 1344 because when it was dynamic I couldn't connect to it... idk why?
+4. I am happy for all of this because now I know, I've learned and for that I'm a better programmer.
 
