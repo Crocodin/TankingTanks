@@ -8,6 +8,8 @@ From tracking **favorite tanks** to storing **user ratings**, the system provide
 
 This **Database System Manager (DBSM)** handles the core **CRUD operations** required to interact with the database efficiently.
 
+> [The database](https://github.com/Crocodin/University_projects/tree/main/semester%203/DB)
+
 ## 📷 Application Preview
 
 <p align="center">
