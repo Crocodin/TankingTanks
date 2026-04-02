@@ -1,23 +1,26 @@
 package ubb.dbsm.domain;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 @Getter
-@AllArgsConstructor
 @ToString
+@NoArgsConstructor
+@Entity
+@Table(name = "country")
 public class Country implements HasID<Integer> {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "country_id")
     private int id;
+
+    @Column(name = "country_name")
     private String name;
 
-    public Country(ResultSet rs) throws SQLException {
-        this.id = rs.getInt("country_id");
-        this.name = rs.getString("country_name");
-    }
+    @Column(name = "GDP")
+    private Integer gdp;
 
     @Override
     public Integer getId() {

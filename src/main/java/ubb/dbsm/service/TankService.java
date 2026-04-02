@@ -2,17 +2,16 @@ package ubb.dbsm.service;
 
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
-import ubb.dbsm.domain.validator.TankValidator;
-import ubb.dbsm.repository.DBRepository.TankDAO;
+import ubb.dbsm.domain.validator.ValidatorStrategy;
 import ubb.dbsm.repository.TankIRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TankService extends AbstractService<Integer, Tank> {
-    public TankService() {
-        this.repository = new TankDAO();
-        this.validatorStrategy = new TankValidator();
+    public TankService(TankIRepository tankIRepository, ValidatorStrategy<Tank> validatorStrategy) {
+        this.repository = tankIRepository;
+        this.validatorStrategy = validatorStrategy;
     }
 
     public List<Tank> findByNameAndManufacturer(String name, Manufacturer manufacturer) {

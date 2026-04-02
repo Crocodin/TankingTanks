@@ -1,10 +1,16 @@
 package ubb.dbsm.repository.DBRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import ubb.dbsm.domain.Country;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.exceptions.DatabaseError;
 import ubb.dbsm.repository.IRepository;
 import ubb.dbsm.service.ManufacturerService;
 import ubb.dbsm.utils.DatabaseManager;
+import ubb.dbsm.utils.JPAUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,141 +18,62 @@ import java.util.List;
 import java.util.Optional;
 
 public class ManufacturerDAO implements IRepository<Integer,  Manufacturer> {
-    private static final DatabaseManager databaseManager = new DatabaseManager();
-    private final CountryDAO countryDAO = new CountryDAO();
+    private static final Logger logger = LogManager.getLogger(ManufacturerDAO.class);
+    private final EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
 
     @Override
     public Optional<Manufacturer> save(Manufacturer entity) {
-        String sql = "INSERT INTO manufacturer(manufacturer_name, founded_year, headquarters_country_id) VALUES (?, ?, ?)";
-
-        try (Connection conn = databaseManager.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, entity.getName());
-            ps.setInt(2, entity.getYearOfFounding());
-            ps.setInt(3, entity.getCountry().getId());
-
-            ps.executeUpdate();
-
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                entity.setId(rs.getInt(1));
-                return Optional.of(entity);
-            }
-
-            return Optional.empty();
-        } catch (SQLException e) {
-            String error = "Manufacturer save error: " + e.getMessage();
-            System.out.println(error);
-            throw new DatabaseError(error, e);
-        }
+        return Optional.empty();
     }
 
     @Override
     public Optional<Manufacturer> update(Manufacturer entity) {
-        String sql = "UPDATE manufacturer SET manufacturer_name = ?, founded_year = ?, headquarters_country_id = ? WHERE manufacturer_id = ?";
-
-        try (Connection conn = databaseManager.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, entity.getName());
-            ps.setInt(2, entity.getYearOfFounding());
-            ps.setInt(3, entity.getCountry().getId());
-            ps.setInt(4, entity.getId());
-
-            ps.executeUpdate();
-
-            return Optional.of(entity);
-        } catch (SQLException e) {
-            String error = "Manufacturer update error: " + e.getMessage();
-            System.out.println(error);
-            throw new DatabaseError(error, e);
-        }
+        return Optional.empty();
     }
 
     @Override
-    public void delete(Manufacturer entity) {
-        String sql = "DELETE FROM manufacturer WHERE id = ?";
-
-        try (Connection conn = databaseManager.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, entity.getId());
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            String error = "Manufacturer delete error: " + e.getMessage();
-            System.out.println(error);
-            throw new DatabaseError(error);
-        }
-    }
+    public void delete(Manufacturer entity) { }
 
     @Override
     public Optional<Manufacturer> find(Integer integer) {
-        String sql = "SELECT * FROM manufacturer WHERE manufacturer_id = ?";
-
-        try (Connection conn = databaseManager.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, integer);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                int countryId = rs.getInt("headquarters_country_id");
-                var country = countryDAO.find(countryId);
-
-                if (country.isEmpty()) {
-                    return Optional.empty();
-                }
-                return Optional.of(new Manufacturer(rs, country.get()));
+        logger.debug("Finding Manufacturer by ID {}", integer);
+        try (EntityManager em = emf.createEntityManager()) {
+            Manufacturer manufacturer = em.find(Manufacturer.class, integer);
+            if (manufacturer == null) {
+                logger.warn("Manufacturer with ID {} not found", integer);
+                return Optional.empty();
             }
-            return Optional.empty();
-        } catch (SQLException e) {
-            String error = "Manufacturer find error: " + e.getMessage();
-            System.out.println(error);
-            throw new DatabaseError(error, e);
+            logger.info("Manufacturer with ID {} found", integer);
+            return Optional.of(manufacturer);
+        } catch (Exception e) {
+            logger.error("Failed to find Manufacturer by ID {}", integer, e);
+            throw e;
         }
     }
 
     @Override
     public List<Manufacturer> findAll() {
-        String sql = "SELECT * FROM manufacturer";
-
-        try (Connection conn = databaseManager.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-             ResultSet rs = ps.executeQuery();
-             List<Manufacturer> manufacturers = new ArrayList<>();
-
-             while (rs.next()) {
-                 int countryId = rs.getInt("headquarters_country_id");
-                 var country = countryDAO.find(countryId);
-                 if (country.isEmpty()) {
-                     throw  new DatabaseError("country not found");
-                 }
-                 manufacturers.add(new Manufacturer(rs, country.get()));
-             }
-             return manufacturers;
-        } catch (SQLException e) {
-            String error = "Manufacturer findAll error: " + e.getMessage();
-            System.out.println(error);
-            throw new DatabaseError(error, e);
+        logger.debug("Finding all Manufacturers");
+        try (EntityManager em = emf.createEntityManager()) {
+            List<Manufacturer> manufacturerList = em.createQuery("SELECT m FROM Manufacturer m", Manufacturer.class).getResultList();
+            logger.info("Found {} Manufacturers", manufacturerList.size());
+            return manufacturerList;
+        } catch (Exception e) {
+            logger.error("Failed to find all Manufacturers", e);
+            throw e;
         }
     }
 
     public Optional<Manufacturer> findByName(String name) {
-        String sql = "SELECT * FROM manufacturer WHERE manufacturer_name = ?";
-
-        try (Connection conn = databaseManager.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, name);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                int countryId = rs.getInt("headquarters_country_id");
-                var country = countryDAO.find(countryId);
-
-                if (country.isEmpty()) {
-                    return Optional.empty();
-                }
-                return Optional.of(new Manufacturer(rs, country.get()));
-            }
-            return Optional.empty();
-        } catch (SQLException e) {
-            String error = "Couldn't find Manufacturer with the name " + name + ": " + e.getMessage();
-            System.out.println(error);
-            throw new DatabaseError(error, e);
+        logger.debug("Finding Manufacturer by name {}", name);
+        try (EntityManager em = emf.createEntityManager()) {
+            List<Manufacturer> manufacturerList = em.createQuery("SELECT m FROM Manufacturer m WHERE name = :name", Manufacturer.class)
+                    .setParameter("name", name).getResultList();
+            logger.info("Found {} Manufacturers with the name {}", manufacturerList.size(), name);
+            return manufacturerList.stream().findFirst();
+        } catch (Exception e) {
+            logger.error("Failed to find Manufacturer by name {}", name, e);
+            throw e;
         }
     }
 }
