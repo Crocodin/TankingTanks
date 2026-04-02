@@ -1,29 +1,28 @@
 package ubb.dbsm.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor
 @ToString
+@Entity
+@Table(name = "manufacturer")
 public class Manufacturer implements HasID<Integer> {
-    @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "manufacturer_id")
     private int id;
-    private String name;
-    private int yearOfFounding;
-    private Country country;
 
-    public Manufacturer(ResultSet rs, Country country) throws SQLException {
-        this.id = rs.getInt("manufacturer_id");
-        this.name = rs.getString("manufacturer_name");
-        this.yearOfFounding = rs.getInt("founded_year");
-        this.country = country;
-    }
+    @Column(name = "manufacturer_name")
+    private String name;
+
+    @Column(name = "founded_year")
+    private int yearOfFounding;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "headquarters_country_id")
+    private Country country;
 
     @Override
     public Integer getId() {

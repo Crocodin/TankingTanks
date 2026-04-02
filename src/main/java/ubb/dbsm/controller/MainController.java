@@ -33,8 +33,13 @@ public class MainController {
     @FXML private Button addTankButton, updateTankButton, removeTankButton, refreshTables;
     @FXML private TextField tankNameTextField, tankManufacturerNameTextField, tankProductionTextField, searchTextField;
 
-    private final TankService tankService = new TankService();
-    private final ManufacturerService manufacturerService = new ManufacturerService();
+    private final TankService tankService;
+    private final ManufacturerService manufacturerService;
+
+    public MainController(TankService tankService, ManufacturerService manufacturerService) {
+        this.tankService = tankService;
+        this.manufacturerService = manufacturerService;
+    }
 
     private final ObservableList<Manufacturer> manufacturerList = FXCollections.observableArrayList();
     private final ObservableList<Tank> tankList = FXCollections.observableArrayList();
@@ -153,11 +158,10 @@ public class MainController {
     @FXML public void addTank(ActionEvent actionEvent) {
         manufacturerService.findByName(tankManufacturerNameTextField.getText()).ifPresentOrElse(
                 manufacturer -> {
-                    Tank tank = new Tank(
-                            tankNameTextField.getText(),
-                            Integer.parseInt(tankProductionTextField.getText()),
-                            manufacturer
-                    );
+                    Tank tank = Tank.builder()
+                            .name(tankNameTextField.getText())
+                            .yearOfProduction(Integer.parseInt(tankProductionTextField.getText()))
+                            .manufacturer(manufacturer).build();
                     try {
                         tankService.save(tank).ifPresentOrElse(
                                 t -> {

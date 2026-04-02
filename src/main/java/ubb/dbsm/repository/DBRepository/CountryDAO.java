@@ -1,20 +1,19 @@
 package ubb.dbsm.repository.DBRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ubb.dbsm.domain.Country;
-import ubb.dbsm.exceptions.DatabaseError;
 import ubb.dbsm.repository.IRepository;
-import ubb.dbsm.utils.DatabaseManager;
+import ubb.dbsm.utils.JPAUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CountryDAO implements IRepository<Integer, Country> {
-    private static final DatabaseManager databaseManager = new DatabaseManager();
+    private final EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
+    private static final Logger logger = LogManager.getLogger(CountryDAO.class);
 
     @Override
     public Optional<Country> save(Country entity) {
@@ -27,49 +26,36 @@ public class CountryDAO implements IRepository<Integer, Country> {
     }
 
     @Override
-    public void delete(Country entity) {
-
-    }
+    public void delete(Country entity) { }
 
     @Override
-    public Optional<Country> find(Integer integer) {
-        String sql = "SELECT * FROM country WHERE country_id = ?";
-
-        try (Connection conn = databaseManager.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, integer);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return Optional.of(new Country(rs));
+    public Optional<Country> find(Integer id) {
+        logger.debug("Looking up Country with id={}", id);
+        try (EntityManager em = emf.createEntityManager()) {
+            Country country = em.find(Country.class, id);
+            if (country == null) {
+                logger.warn("No Country found with id={}", id);
+                return Optional.empty();
             }
-
-            return Optional.empty();
-
-        } catch (SQLException e) {
-            String error = "Country find error: " + e.getMessage();
-            System.out.println(error);
-            throw new DatabaseError(error, e);
+            logger.debug("Found Country: {}", country);
+            return Optional.of(country);
+        } catch (Exception e) {
+            logger.error("Error finding Country with id={}", id, e);
+            throw e;
         }
     }
 
     @Override
     public List<Country> findAll() {
-        String sql = "SELECT * FROM country";
-
-        try (Connection conn = databaseManager.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            List<Country> countries = new ArrayList<>();
-
-            while (rs.next()) {
-                countries.add(new Country(rs));
-            }
-
+        logger.debug("Fetching all countries");
+        try (EntityManager em = emf.createEntityManager()) {
+            List<Country> countries = em.createQuery("SELECT c FROM Country c", Country.class)
+                    .getResultList();
+            logger.info("Fetched {} countries", countries.size());
             return countries;
-
-        } catch (SQLException e) {
-            String error = "Country findAll error: " + e.getMessage();
-            System.out.println(error);
-            throw new DatabaseError(error, e);
+        } catch (Exception e) {
+            logger.error("Error fetching all countries", e);
+            throw e;
         }
     }
 }

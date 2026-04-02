@@ -22,6 +22,15 @@ dependencies {
 
     // Source: https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
     implementation("com.microsoft.sqlserver:mssql-jdbc:13.2.1.jre11")
+
+    // Source: https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
+    implementation("org.hibernate.orm:hibernate-core:6.5.2.Final")
+
+    // Source: https://mvnrepository.com/artifact/org.springframework/spring-context
+    implementation("org.springframework:spring-context:6.2.15")
+
+    // Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation("org.apache.logging.log4j:log4j-core:2.25.3")
 }
 
 javafx {
