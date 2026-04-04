@@ -75,7 +75,12 @@ The JDBC version required manually managing the connection, statement, and resul
 
 ## Performance Measurements
 
-*[To be completed by the author with benchmark results.]*
+### Connection Pooling
+Using connection pooling we can make our application faster by not opening a new connection to the database everytime we need to access data. Opening a connection is expensive, it involves network handshakes, authentication, and memory allocation on both sides. <br>
+**HikariCP** is simply the fastest and most popular connection pool for Java. Spring Boot actually uses it by default. It works by opening a fixed number of connections at startup, when you need one it hands you an existing [connection] one from the pool and when you're done it returns it to the pool, not closes it!
+<p align="center">
+  <img src=".readme/chart_1_connectionPooling.png" alt="git changes" width="" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+</p>
 
 ---
 
