@@ -25,3 +25,57 @@
 02 Apr 2026 22:10:55,364 INFO  org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState 607 stop - HHH10001008: Cleaning up connection pool [jdbc:sqlserver://CROCODIN-PC:1433;databaseName=TankingTanks;encrypt=true;trustServerCertificate=true]
 02 Apr 2026 22:10:55,367 INFO  ubb.dbsm.utils.JPAUtils 31 closeEntityManagerFactory - EntityManagerFactory closed successfully
 02 Apr 2026 22:10:55,370 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+04 Apr 2026 16:28:27,854 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+04 Apr 2026 16:28:27,975 ERROR ubb.dbsm.utils.JPAUtils 34 getEntityManagerFactory - Failed to initialize EntityManagerFactory
+java.lang.NumberFormatException: For input string: "2               # Minimum connections kept open even when idle"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
+	at java.base/java.lang.Integer.parseInt(Integer.java:565)
+	at java.base/java.lang.Integer.parseInt(Integer.java:662)
+	at ubb.dbsm.utils.JPAUtils.getHikariConfig(JPAUtils.java:51)
+	at ubb.dbsm.utils.JPAUtils.getEntityManagerFactory(JPAUtils.java:22)
+	at ubb.dbsm.repository.DBRepository.CountryDAO.<init>(CountryDAO.java:15)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:197)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:123)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1242)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:144)
+	at org.springframework.context.support.ClassPathXmlApplicationContext.<init>(ClassPathXmlApplicationContext.java:85)
+	at ubb.dbsm.Main.init(Main.java:21)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.LauncherImpl.launchApplication1(LauncherImpl.java:817)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.LauncherImpl.lambda$launchApplication$2(LauncherImpl.java:196)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+04 Apr 2026 16:28:27,978 WARN  org.springframework.context.support.AbstractApplicationContext 635 refresh - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'countryDAO' defined in class path resource [applicationConfig.java.xml]: Failed to instantiate [ubb.dbsm.repository.DBRepository.CountryDAO]: Constructor threw exception
+04 Apr 2026 16:32:27,576 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+04 Apr 2026 16:32:28,132 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+04 Apr 2026 16:32:28,223 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+04 Apr 2026 16:32:28,313 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+04 Apr 2026 16:32:28,356 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+04 Apr 2026 16:32:28,612 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+04 Apr 2026 16:32:29,835 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+04 Apr 2026 16:32:30,328 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+04 Apr 2026 16:32:31,338 INFO  ubb.dbsm.repository.DBRepository.ManufacturerDAO 59 findAll - Found 25 Manufacturers
+04 Apr 2026 16:33:41,332 INFO  ubb.dbsm.repository.DBRepository.TankDAO 31 findByNameAndManufacturer - Found 3 tanks with name like '' for manufacturer Manufacturer(id=1, name=Ford Motor Company, yearOfFounding=1903, country=Country(id=1, name=United States of America, gdp=null))
+04 Apr 2026 16:33:41,439 INFO  ubb.dbsm.repository.DBRepository.TankDAO 31 findByNameAndManufacturer - Found 3 tanks with name like '' for manufacturer Manufacturer(id=1, name=Ford Motor Company, yearOfFounding=1903, country=Country(id=1, name=United States of America, gdp=null))
+04 Apr 2026 16:33:43,170 INFO  ubb.dbsm.repository.DBRepository.TankDAO 31 findByNameAndManufacturer - Found 9 tanks with name like '' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+04 Apr 2026 16:33:43,393 INFO  ubb.dbsm.repository.DBRepository.TankDAO 31 findByNameAndManufacturer - Found 9 tanks with name like '' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+04 Apr 2026 16:33:58,578 INFO  ubb.dbsm.repository.DBRepository.TankDAO 31 findByNameAndManufacturer - Found 5 tanks with name like 'bm' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+04 Apr 2026 16:34:05,650 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+04 Apr 2026 16:34:05,652 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+04 Apr 2026 16:34:05,654 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+04 Apr 2026 16:34:05,654 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+04 Apr 2026 16:34:05,659 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+04 Apr 2026 16:34:05,661 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully

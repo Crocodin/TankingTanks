@@ -15,12 +15,6 @@
         <class>ubb.dbsm.domain.Country</class>
 
         <properties>
-            <!-- Database connection -->
-            <property name="jakarta.persistence.jdbc.driver"   value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-            <property name="jakarta.persistence.jdbc.url"      value="jdbc:sqlserver://your_host:1433;databaseName=your_db"/>
-            <property name="jakarta.persistence.jdbc.user"     value="sa"/>
-            <property name="jakarta.persistence.jdbc.password" value="your_password_here"/>
-
             <!-- Hibernate settings -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
             <property name="hibernate.hbm2ddl.auto"        value="update"/>
