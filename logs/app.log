@@ -79,3 +79,18 @@ java.lang.NumberFormatException: For input string: "2               # Minimum co
 04 Apr 2026 16:34:05,654 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
 04 Apr 2026 16:34:05,659 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
 04 Apr 2026 16:34:05,661 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+04 Apr 2026 16:37:58,994 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+04 Apr 2026 16:37:59,462 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+04 Apr 2026 16:37:59,520 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+04 Apr 2026 16:37:59,568 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+04 Apr 2026 16:37:59,607 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+04 Apr 2026 16:37:59,792 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+04 Apr 2026 16:38:00,826 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+04 Apr 2026 16:38:01,301 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+04 Apr 2026 16:38:01,889 INFO  ubb.dbsm.repository.DBRepository.ManufacturerDAO 59 findAll - Found 25 Manufacturers
+04 Apr 2026 16:38:18,229 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+04 Apr 2026 16:38:18,229 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+04 Apr 2026 16:38:18,230 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+04 Apr 2026 16:38:18,230 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+04 Apr 2026 16:38:18,235 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+04 Apr 2026 16:38:18,238 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
