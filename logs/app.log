@@ -94,3 +94,545 @@ java.lang.NumberFormatException: For input string: "2               # Minimum co
 04 Apr 2026 16:38:18,230 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
 04 Apr 2026 16:38:18,235 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
 04 Apr 2026 16:38:18,238 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+06 Apr 2026 09:49:02,611 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+06 Apr 2026 09:49:03,290 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+06 Apr 2026 09:49:03,381 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+06 Apr 2026 09:49:03,482 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+06 Apr 2026 09:49:03,535 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+06 Apr 2026 09:49:03,769 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+06 Apr 2026 09:49:05,077 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+06 Apr 2026 09:49:05,768 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+06 Apr 2026 09:49:06,676 INFO  ubb.dbsm.repository.DBRepository.ManufacturerDAO 59 findAll - Found 25 Manufacturers
+06 Apr 2026 09:49:12,055 INFO  ubb.dbsm.repository.DBRepository.TankDAO 31 findByNameAndManufacturer - Found 9 tanks with name like '' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+06 Apr 2026 09:49:12,265 INFO  ubb.dbsm.repository.DBRepository.TankDAO 31 findByNameAndManufacturer - Found 9 tanks with name like '' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+06 Apr 2026 09:49:15,308 INFO  ubb.dbsm.repository.DBRepository.TankDAO 31 findByNameAndManufacturer - Found 5 tanks with name like 'BM' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+06 Apr 2026 09:49:26,188 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+06 Apr 2026 09:49:26,189 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+06 Apr 2026 09:49:26,193 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+06 Apr 2026 09:49:26,194 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+06 Apr 2026 09:49:26,212 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+06 Apr 2026 09:49:26,218 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+21 Apr 2026 23:35:28,430 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+21 Apr 2026 23:35:28,894 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+21 Apr 2026 23:35:28,949 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+21 Apr 2026 23:35:28,995 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+21 Apr 2026 23:35:29,033 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+21 Apr 2026 23:35:29,224 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21 Apr 2026 23:35:30,253 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21 Apr 2026 23:35:30,869 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+21 Apr 2026 23:35:31,352 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -10
+java.lang.IllegalArgumentException: first-result value cannot be negative : -10
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:109)
+	at ubb.dbsm.controller.MainController.initialize(MainController.java:55)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at javafx.base@21.0.9/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.9/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2688)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531)
+	at ubb.dbsm.Main.start(Main.java:31)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:35:31,354 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+21 Apr 2026 23:35:31,354 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+21 Apr 2026 23:35:31,355 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+21 Apr 2026 23:35:31,355 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+21 Apr 2026 23:35:31,359 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+21 Apr 2026 23:35:31,360 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+21 Apr 2026 23:36:57,528 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+21 Apr 2026 23:36:57,972 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+21 Apr 2026 23:36:58,027 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+21 Apr 2026 23:36:58,073 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+21 Apr 2026 23:36:58,110 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+21 Apr 2026 23:36:58,279 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21 Apr 2026 23:36:59,296 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21 Apr 2026 23:36:59,712 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+21 Apr 2026 23:37:00,308 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - Result type is 'Integer' but the query returned a 'Long'
+org.hibernate.query.QueryTypeMismatchException: Result type is 'Integer' but the query returned a 'Long'
+	at org.hibernate.sql.results.internal.RowTransformerCheckingImpl.transformRow(RowTransformerCheckingImpl.java:33)
+	at org.hibernate.sql.results.internal.StandardRowReader.readRow(StandardRowReader.java:102)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:205)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382)
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526)
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423)
+	at org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:31)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:109)
+	at ubb.dbsm.controller.MainController.initialize(MainController.java:55)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at javafx.base@21.0.9/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.9/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2688)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2563)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2531)
+	at ubb.dbsm.Main.start(Main.java:31)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:839)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:483)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:37:00,312 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+21 Apr 2026 23:37:00,312 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+21 Apr 2026 23:37:00,314 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+21 Apr 2026 23:37:00,314 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+21 Apr 2026 23:37:00,318 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+21 Apr 2026 23:37:00,320 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+21 Apr 2026 23:39:01,780 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+21 Apr 2026 23:39:02,231 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+21 Apr 2026 23:39:02,289 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+21 Apr 2026 23:39:02,335 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+21 Apr 2026 23:39:02,369 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+21 Apr 2026 23:39:02,549 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21 Apr 2026 23:39:03,527 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21 Apr 2026 23:39:03,946 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+21 Apr 2026 23:39:16,559 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -25
+java.lang.IllegalArgumentException: first-result value cannot be negative : -25
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:109)
+	at ubb.dbsm.controller.MainController.lambda$initialize$3(MainController.java:84)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:39:19,091 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -50
+java.lang.IllegalArgumentException: first-result value cannot be negative : -50
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:109)
+	at ubb.dbsm.controller.MainController.lambda$initialize$3(MainController.java:84)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:39:22,233 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -100
+java.lang.IllegalArgumentException: first-result value cannot be negative : -100
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:109)
+	at ubb.dbsm.controller.MainController.lambda$initialize$3(MainController.java:84)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:39:23,203 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -10
+java.lang.IllegalArgumentException: first-result value cannot be negative : -10
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:109)
+	at ubb.dbsm.controller.MainController.lambda$initialize$3(MainController.java:84)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:39:24,894 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+21 Apr 2026 23:39:24,895 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+21 Apr 2026 23:39:24,896 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+21 Apr 2026 23:39:24,896 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+21 Apr 2026 23:39:24,900 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+21 Apr 2026 23:39:24,902 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+21 Apr 2026 23:40:06,857 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+21 Apr 2026 23:40:07,299 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+21 Apr 2026 23:40:07,356 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+21 Apr 2026 23:40:07,401 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+21 Apr 2026 23:40:07,433 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+21 Apr 2026 23:40:07,603 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21 Apr 2026 23:40:08,618 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21 Apr 2026 23:40:09,012 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+21 Apr 2026 23:41:22,556 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+21 Apr 2026 23:41:23,003 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+21 Apr 2026 23:41:23,055 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+21 Apr 2026 23:41:23,102 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+21 Apr 2026 23:41:23,136 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+21 Apr 2026 23:41:23,312 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21 Apr 2026 23:41:24,310 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21 Apr 2026 23:41:24,709 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+21 Apr 2026 23:41:41,418 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+21 Apr 2026 23:41:41,418 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+21 Apr 2026 23:41:41,419 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+21 Apr 2026 23:41:41,420 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+21 Apr 2026 23:41:41,424 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+21 Apr 2026 23:41:41,426 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+21 Apr 2026 23:42:46,324 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+21 Apr 2026 23:42:46,776 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+21 Apr 2026 23:42:46,830 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+21 Apr 2026 23:42:46,877 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+21 Apr 2026 23:42:46,912 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+21 Apr 2026 23:42:47,081 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21 Apr 2026 23:42:48,059 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21 Apr 2026 23:42:48,460 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+21 Apr 2026 23:42:58,374 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+21 Apr 2026 23:42:58,375 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+21 Apr 2026 23:42:58,376 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+21 Apr 2026 23:42:58,376 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+21 Apr 2026 23:42:58,380 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+21 Apr 2026 23:42:58,383 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+21 Apr 2026 23:43:13,742 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+21 Apr 2026 23:43:14,195 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+21 Apr 2026 23:43:14,253 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+21 Apr 2026 23:43:14,303 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+21 Apr 2026 23:43:14,340 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+21 Apr 2026 23:43:14,522 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21 Apr 2026 23:43:15,515 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21 Apr 2026 23:43:15,909 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+21 Apr 2026 23:43:24,235 INFO  ubb.dbsm.repository.DBRepository.TankDAO 28 findByNameAndManufacturer - Found 3 tanks with name like '' for manufacturer Manufacturer(id=13, name=Uraltransmash, yearOfFounding=1817, country=Country(id=31, name=URRS, gdp=null))
+21 Apr 2026 23:43:24,386 INFO  ubb.dbsm.repository.DBRepository.TankDAO 28 findByNameAndManufacturer - Found 3 tanks with name like '' for manufacturer Manufacturer(id=13, name=Uraltransmash, yearOfFounding=1817, country=Country(id=31, name=URRS, gdp=null))
+21 Apr 2026 23:43:30,310 INFO  ubb.dbsm.repository.DBRepository.TankDAO 28 findByNameAndManufacturer - Found 0 tanks with name like '' for manufacturer Manufacturer(id=5, name=Renault, yearOfFounding=1899, country=Country(id=5, name=France, gdp=null))
+21 Apr 2026 23:43:30,535 INFO  ubb.dbsm.repository.DBRepository.TankDAO 28 findByNameAndManufacturer - Found 0 tanks with name like '' for manufacturer Manufacturer(id=5, name=Renault, yearOfFounding=1899, country=Country(id=5, name=France, gdp=null))
+21 Apr 2026 23:43:32,281 INFO  ubb.dbsm.repository.DBRepository.TankDAO 28 findByNameAndManufacturer - Found 1 tanks with name like '' for manufacturer Manufacturer(id=3, name=Krupp, yearOfFounding=1811, country=Country(id=3, name=Germany, gdp=null))
+21 Apr 2026 23:43:32,494 INFO  ubb.dbsm.repository.DBRepository.TankDAO 28 findByNameAndManufacturer - Found 1 tanks with name like '' for manufacturer Manufacturer(id=3, name=Krupp, yearOfFounding=1811, country=Country(id=3, name=Germany, gdp=null))
+21 Apr 2026 23:43:33,805 INFO  ubb.dbsm.repository.DBRepository.TankDAO 28 findByNameAndManufacturer - Found 9 tanks with name like '' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+21 Apr 2026 23:43:34,025 INFO  ubb.dbsm.repository.DBRepository.TankDAO 28 findByNameAndManufacturer - Found 9 tanks with name like '' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+21 Apr 2026 23:44:35,275 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+21 Apr 2026 23:44:35,276 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+21 Apr 2026 23:44:35,278 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+21 Apr 2026 23:44:35,278 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+21 Apr 2026 23:44:35,282 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+21 Apr 2026 23:44:35,284 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully
+21 Apr 2026 23:54:53,310 INFO  ubb.dbsm.utils.JPAUtils 20 getEntityManagerFactory - Initializing EntityManagerFactory for persistence unit 'TankingTanksPU'
+21 Apr 2026 23:54:53,763 INFO  ubb.dbsm.utils.JPAUtils 25 getEntityManagerFactory - HikariCP pool initialized successfully
+21 Apr 2026 23:54:53,823 INFO  org.hibernate.jpa.internal.util.LogHelper 31 logPersistenceUnitInformation - HHH000204: Processing PersistenceUnitInfo [name: TankingTanksPU]
+21 Apr 2026 23:54:53,870 INFO  org.hibernate.Version 44 logVersion - HHH000412: Hibernate ORM core version 6.5.2.Final
+21 Apr 2026 23:54:53,904 INFO  org.hibernate.cache.internal.RegionFactoryInitiator 50 initiateService - HHH000026: Second-level cache disabled
+21 Apr 2026 23:54:54,082 WARN  org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl 153 constructDialect - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+21 Apr 2026 23:54:55,076 INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator 59 initiateService - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+21 Apr 2026 23:54:55,490 INFO  ubb.dbsm.utils.JPAUtils 32 getEntityManagerFactory - EntityManagerFactory initialized successfully
+21 Apr 2026 23:55:04,054 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -10
+java.lang.IllegalArgumentException: first-result value cannot be negative : -10
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:111)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at javafx.base@21.0.9/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.9/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1853)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
+	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
+	at ubb.dbsm.controller.MainController.prevPage(MainController.java:221)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at javafx.base@21.0.9/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.9/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1853)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
+	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
+	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
+	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
+	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:55:08,692 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -10
+java.lang.IllegalArgumentException: first-result value cannot be negative : -10
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:111)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at javafx.base@21.0.9/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.9/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1853)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
+	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
+	at ubb.dbsm.controller.MainController.prevPage(MainController.java:221)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at javafx.base@21.0.9/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.9/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1853)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
+	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
+	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
+	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
+	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:55:30,666 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -25
+java.lang.IllegalArgumentException: first-result value cannot be negative : -25
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:111)
+	at ubb.dbsm.controller.MainController.lambda$initialize$3(MainController.java:86)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:456)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:455)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:55:34,482 ERROR ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO 37 getPage - first-result value cannot be negative : -25
+java.lang.IllegalArgumentException: first-result value cannot be negative : -25
+	at org.hibernate.query.spi.AbstractCommonQueryContract.applyFirstResult(AbstractCommonQueryContract.java:596)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:869)
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.setFirstResult(QuerySqmImpl.java:136)
+	at ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO.getPage(ManufacturerPagedDAO.java:27)
+	at ubb.dbsm.service.model.ManufacturerService.getPage(ManufacturerService.java:27)
+	at ubb.dbsm.controller.MainController.refreshTables(MainController.java:111)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at javafx.base@21.0.9/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.9/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1853)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
+	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
+	at ubb.dbsm.controller.MainController.prevPage(MainController.java:221)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at javafx.base@21.0.9/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.9/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1853)
+	at javafx.fxml@21.0.9/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
+	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
+	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
+	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
+	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:138)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+21 Apr 2026 23:55:48,507 INFO  ubb.dbsm.Main 42 stop - Application shutting down, closing resources
+21 Apr 2026 23:55:48,507 INFO  ubb.dbsm.utils.JPAUtils 61 closeEntityManagerFactory - Closing EntityManagerFactory
+21 Apr 2026 23:55:48,508 INFO  ubb.dbsm.utils.JPAUtils 63 closeEntityManagerFactory - EntityManagerFactory closed successfully
+21 Apr 2026 23:55:48,508 INFO  ubb.dbsm.utils.JPAUtils 69 closeEntityManagerFactory - Closing HikariCP connection pool
+21 Apr 2026 23:55:48,512 INFO  ubb.dbsm.utils.JPAUtils 71 closeEntityManagerFactory - HikariCP pool closed successfully
+21 Apr 2026 23:55:48,514 INFO  ubb.dbsm.Main 45 stop - Resources closed successfully

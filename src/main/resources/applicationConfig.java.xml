@@ -9,11 +9,14 @@
     <bean class="ubb.dbsm.repository.DBRepository.ManufacturerDAO" id="manufacturerDAO"/>
     <bean class="ubb.dbsm.repository.DBRepository.TankDAO" id="tankDAO"/>
 
-    <bean class="ubb.dbsm.service.ManufacturerService" id="manufacturerService">
-        <constructor-arg ref="manufacturerDAO"/>
+    <bean class="ubb.dbsm.repository.DBRepository.paged.TankPagedDAO" id="tankPagedDAO"/>
+    <bean class="ubb.dbsm.repository.DBRepository.paged.ManufacturerPagedDAO" id="manufacturerPagedDAO"/>
+
+    <bean class="ubb.dbsm.service.model.ManufacturerService" id="manufacturerService">
+        <constructor-arg ref="manufacturerPagedDAO"/>
     </bean>
-    <bean class="ubb.dbsm.service.TankService" id="tankService">
-        <constructor-arg ref="tankDAO"/>
+    <bean class="ubb.dbsm.service.model.TankService" id="tankService">
+        <constructor-arg ref="tankPagedDAO"/>
         <constructor-arg ref="tankValidator"/>
     </bean>
 
