@@ -1,14 +1,12 @@
 package ubb.dbsm.controller;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,14 +15,20 @@ import ubb.dbsm.Main;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
 import ubb.dbsm.exceptions.DatabaseError;
-import ubb.dbsm.service.ManufacturerService;
-import ubb.dbsm.service.TankService;
+import ubb.dbsm.service.model.ManufacturerService;
+import ubb.dbsm.service.model.TankService;
+import ubb.dbsm.utils.paging.Page;
+import ubb.dbsm.utils.paging.Pageable;
 
 
 public class MainController {
+    @FXML public Label pageCountLabel;
     @FXML private TableView<Manufacturer> manufacturerTabableView;
     @FXML private TableColumn<Manufacturer, Integer> manufacturerIdColumn;
     @FXML private TableColumn<Manufacturer, String> manufacturerNameColumn, manufacturerCountryColumn;
+
+    @FXML public ComboBox<Integer> pageSizeComboBox;
+    private final Pageable currentPageable = new Pageable(1, 10);
 
     @FXML private TableView<Tank> tankTabableView;
     @FXML private TableColumn<Tank, Integer> tankIdColumn, tankProductionColumn;
@@ -35,6 +39,8 @@ public class MainController {
 
     private final TankService tankService;
     private final ManufacturerService manufacturerService;
+
+    private long totalManufacturers;
 
     public MainController(TankService tankService, ManufacturerService manufacturerService) {
         this.tankService = tankService;
@@ -70,6 +76,16 @@ public class MainController {
                     return new SimpleStringProperty(tank.getManufacturer().getName());
                 }
         );
+
+        ObservableList<Integer> pageSizeComboBoxItems = FXCollections.observableArrayList(10, 25, 50, 100);
+        pageSizeComboBox.setItems(pageSizeComboBoxItems);
+        pageSizeComboBox.setValue(pageSizeComboBoxItems.getFirst());
+        pageSizeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.currentPageable.setPageSize(newValue);
+            Platform.runLater(() -> {
+                this.refreshTables(null);
+            });
+        });
     }
 
     @FXML public void populateTanks(MouseEvent mouseEvent) {
@@ -91,7 +107,16 @@ public class MainController {
 
         manufacturerList.clear();
         tankList.clear();
-        manufacturerList.addAll(manufacturerService.findAll());
+
+        Page<Manufacturer> manufacturerPage = manufacturerService.getPage(this.currentPageable);
+        this.totalManufacturers = manufacturerPage.getTotalItems();
+        manufacturerList.addAll(manufacturerPage.getItemsOnPage());
+
+        long comp = manufacturerPage.getPageable().getPageSize();
+        if (this.totalManufacturers % comp == 0) {
+            this.pageCountLabel.setText(manufacturerPage.getPageable().getPageNumber() + "/" + (this.totalManufacturers / comp));
+        }
+        else this.pageCountLabel.setText(manufacturerPage.getPageable().getPageNumber() + "/" + (this.totalManufacturers / comp + 1));
         this.searchTextField.clear();
     }
 
@@ -188,5 +213,17 @@ public class MainController {
                 tankList.addAll(tankService.findByNameAndManufacturer(searchTextField.getText(), selectedManufacturer));
             }
         }
+    }
+
+    @FXML public void prevPage(ActionEvent actionEvent) {
+        if (this.currentPageable.getPageNumber() <= 1) return;
+        this.currentPageable.decrementPageNumber();
+        this.refreshTables.fire();
+    }
+
+    @FXML public void nextPage(ActionEvent actionEvent) {
+        if ((long) this.currentPageable.getPageSize() * this.currentPageable.getPageNumber() >= this.totalManufacturers) return;
+        this.currentPageable.incrementPageNumber();
+        this.refreshTables.fire();
     }
 }

@@ -7,18 +7,15 @@ import org.apache.logging.log4j.Logger;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
 import ubb.dbsm.exceptions.DatabaseError;
-import ubb.dbsm.repository.IRepository;
-import ubb.dbsm.repository.TankIRepository;
+import ubb.dbsm.repository.model.ITankRepository;
 import ubb.dbsm.utils.JPAUtils;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TankDAO implements TankIRepository {
+public class TankDAO implements ITankRepository {
     private static final Logger logger = LogManager.getLogger(TankDAO.class);
-    private final EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
+    protected final EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
 
     @Override
     public List<Tank> findByNameAndManufacturer(String name, Manufacturer manufacturer) {
@@ -86,7 +83,7 @@ public class TankDAO implements TankIRepository {
         logger.debug("Entering find with entity {}", integer);
         try (EntityManager em = emf.createEntityManager()) {
             Tank tank = em.find(Tank.class, integer);
-            logger.info("Found entity {} with name {}", tank, tank.getName());
+            logger.debug("Found entity {} with name {}", tank, tank.getName());
             return Optional.of(tank);
         } catch (Exception e) {
             logger.error("Failed in find with entity {}", integer, e);
@@ -99,7 +96,7 @@ public class TankDAO implements TankIRepository {
         logger.debug("Entering findAll");
         try (EntityManager em = emf.createEntityManager()) {
             List<Tank> tankList = em.createQuery("SELECT t FROM Tank t").getResultList();
-            logger.info("Fetched {} tanks", tankList.size());
+            logger.debug("Fetched {} tanks", tankList.size());
             return tankList;
         } catch (Exception e) {
             logger.error("Failed in findAll", e);

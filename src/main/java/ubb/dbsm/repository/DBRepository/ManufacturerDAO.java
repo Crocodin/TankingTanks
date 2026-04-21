@@ -4,22 +4,17 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ubb.dbsm.domain.Country;
 import ubb.dbsm.domain.Manufacturer;
-import ubb.dbsm.exceptions.DatabaseError;
 import ubb.dbsm.repository.IRepository;
-import ubb.dbsm.service.ManufacturerService;
-import ubb.dbsm.utils.DatabaseManager;
+import ubb.dbsm.repository.model.IManufacturerRepository;
 import ubb.dbsm.utils.JPAUtils;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ManufacturerDAO implements IRepository<Integer,  Manufacturer> {
+public class ManufacturerDAO implements IManufacturerRepository {
     private static final Logger logger = LogManager.getLogger(ManufacturerDAO.class);
-    private final EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
+    protected final EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
 
     @Override
     public Optional<Manufacturer> save(Manufacturer entity) {
@@ -64,6 +59,7 @@ public class ManufacturerDAO implements IRepository<Integer,  Manufacturer> {
         }
     }
 
+    @Override
     public Optional<Manufacturer> findByName(String name) {
         logger.debug("Finding Manufacturer by name {}", name);
         try (EntityManager em = emf.createEntityManager()) {

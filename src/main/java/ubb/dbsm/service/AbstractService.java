@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-abstract class AbstractService<ID, T extends HasID<ID>> implements IService<ID, T> {
-    protected IRepository<ID, T> repository;
+public abstract class AbstractService<ID, T extends HasID<ID>, R extends IRepository<ID, T>> implements IService<ID, T> {
+    protected R repository;
     protected ValidatorStrategy<T> validatorStrategy;
     protected static final Logger logger = LogManager.getLogger(AbstractService.class);
 
