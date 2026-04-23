@@ -42,7 +42,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-cache")
 
     // EhCache
-    implementation("org.ehcache:ehcache:3.10.8")
+    implementation("org.ehcache:ehcache:3.10.8") {
+        artifact {
+            classifier = "jakarta"
+        }
+    }
     implementation("javax.cache:cache-api:1.1.1")
 }
 
