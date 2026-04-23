@@ -7,15 +7,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Pageable {
+public class Pageable implements IPageable {
     private int pageNumber;
     private int pageSize;
 
-    public void incrementPageNumber() {
+    @Override
+    public void increment() {
         this.pageNumber++;
     }
 
-    public void decrementPageNumber() {
+    @Override
+    public void decrement() {
         if (pageNumber > 0) this.pageNumber--;
     }
 }

@@ -17,18 +17,22 @@ import ubb.dbsm.domain.Tank;
 import ubb.dbsm.exceptions.DatabaseError;
 import ubb.dbsm.service.model.ManufacturerService;
 import ubb.dbsm.service.model.TankService;
+import ubb.dbsm.utils.paging.Indexable;
 import ubb.dbsm.utils.paging.Page;
 import ubb.dbsm.utils.paging.Pageable;
 
 
 public class MainController {
     @FXML public Label pageCountLabel;
+    @FXML public Label pageCountLabelChildren;
+    @FXML public ComboBox<Integer> pageSizeComboBoxChildren;
     @FXML private TableView<Manufacturer> manufacturerTabableView;
     @FXML private TableColumn<Manufacturer, Integer> manufacturerIdColumn;
     @FXML private TableColumn<Manufacturer, String> manufacturerNameColumn, manufacturerCountryColumn;
 
     @FXML public ComboBox<Integer> pageSizeComboBox;
     private final Pageable currentPageable = new Pageable(1, 10);
+    private Indexable currentPageableChildren = new Indexable(10);
 
     @FXML private TableView<Tank> tankTabableView;
     @FXML private TableColumn<Tank, Integer> tankIdColumn, tankProductionColumn;
@@ -86,16 +90,25 @@ public class MainController {
                 this.refreshTables(null);
             });
         });
+
+        ObservableList<Integer> pageSizeComboBoxChildrenItems = FXCollections.observableArrayList(10, 25, 50, 100);
+        pageSizeComboBoxChildren.setItems(pageSizeComboBoxChildrenItems);
+        pageSizeComboBoxChildren.setValue(pageSizeComboBoxChildrenItems.getFirst());
+        pageSizeComboBoxChildren.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.currentPageableChildren.setPageSize(newValue);
+            Platform.runLater(this::refersTankTable);
+        });
     }
 
     @FXML public void populateTanks(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1) {
             selectedManufacturer = manufacturerTabableView.getSelectionModel().getSelectedItem();
             this.resetSelectedTank();
+            currentPageableChildren = new Indexable(currentPageableChildren.getPageSize());
         }
         if (selectedManufacturer != null) {
             tankList.clear();
-            tankList.addAll(tankService.findByManufacturer(selectedManufacturer));
+            this.refersTankTable();
         }
     }
 
@@ -177,7 +190,18 @@ public class MainController {
     private void refersTankTable() {
         this.resetSelectedTank();
         tankList.clear();
-        tankList.addAll(tankService.findByNameAndManufacturer(searchTextField.getText(), selectedManufacturer));
+
+        Page<Tank> tankPage = tankService.findByNameAndManufacturer(searchTextField.getText(), selectedManufacturer, currentPageableChildren);
+
+        tankList.addAll(tankPage.getItemsOnPage());
+
+        long totalTanks = tankPage.getTotalItems();
+        int pageSize = currentPageableChildren.getPageSize();
+        // calculate current page number from stack size (each push = one page forward)
+        int currentPage = currentPageableChildren.getPreviousId().size() + 1;
+        long totalPages = (long) Math.ceil((double) totalTanks / pageSize);
+
+        this.pageCountLabelChildren.setText(currentPage + "/" + totalPages);
     }
 
     @FXML public void addTank(ActionEvent actionEvent) {
@@ -217,13 +241,26 @@ public class MainController {
 
     @FXML public void prevPage(ActionEvent actionEvent) {
         if (this.currentPageable.getPageNumber() <= 1) return;
-        this.currentPageable.decrementPageNumber();
+        this.currentPageable.decrement();
         this.refreshTables.fire();
     }
 
     @FXML public void nextPage(ActionEvent actionEvent) {
         if ((long) this.currentPageable.getPageSize() * this.currentPageable.getPageNumber() >= this.totalManufacturers) return;
-        this.currentPageable.incrementPageNumber();
+        this.currentPageable.increment();
         this.refreshTables.fire();
+    }
+
+    @FXML public void nextPageChildren(ActionEvent actionEvent) {
+        if (tankList.size() < currentPageableChildren.getPageSize()) return;
+        currentPageableChildren.getPreviousId().push(currentPageableChildren.getPageNumber()); // ✅ push here
+        currentPageableChildren.increment();
+        this.refersTankTable();
+    }
+
+    @FXML public void prevPageChildren(ActionEvent actionEvent) {
+        if (currentPageableChildren.getPreviousId().isEmpty()) return;
+        currentPageableChildren.decrement(); // just pops, no push
+        this.refersTankTable();
     }
 }

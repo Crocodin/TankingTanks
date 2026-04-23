@@ -8,6 +8,7 @@ import ubb.dbsm.domain.Tank;
 import ubb.dbsm.repository.DBRepository.ManufacturerDAO;
 import ubb.dbsm.repository.IPageRepository;
 import ubb.dbsm.repository.model.paged.IManufacturerPagedRepository;
+import ubb.dbsm.utils.paging.IPageable;
 import ubb.dbsm.utils.paging.Page;
 import ubb.dbsm.utils.paging.Pageable;
 
@@ -18,7 +19,7 @@ public class ManufacturerPagedDAO extends ManufacturerDAO implements IManufactur
     private static final Logger logger = LogManager.getLogger(ManufacturerPagedDAO.class);
 
     @Override
-    public Page<Manufacturer> getPage(Pageable pageable) {
+    public Page<Manufacturer> getPage(IPageable pageable) {
         logger.debug("enter ManufacturerPagedDAO.getPage() with page  number {} and size {}",  pageable.getPageNumber(), pageable.getPageSize());
         int offset = (pageable.getPageNumber() - 1) * pageable.getPageSize();
 
