@@ -1,5 +1,6 @@
 package ubb.dbsm.service.model;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 public class TankService extends AbstractService<Integer, Tank, ITankPagedRepository> implements IPageService<Tank> {
+
     public TankService(ITankPagedRepository repository, ValidatorStrategy<Tank> validatorStrategy) {
         this.repository = repository;
         this.validatorStrategy = validatorStrategy;
@@ -26,16 +28,9 @@ public class TankService extends AbstractService<Integer, Tank, ITankPagedReposi
         return ((ITankRepository) repository).findByNameAndManufacturer(name, manufacturer);
     }
 
+    @Cacheable(value = "tankPages", key = "'tank - ' + #pageable.pageNumber + '-' + #pageable.pageSize + '-' + #manufacturer.name")
     public Page<Tank> findByNameAndManufacturer(String name, Manufacturer manufacturer, IPageable pageable) {
         return repository.findByNameAndManufacturer(name, manufacturer, pageable);
-    }
-
-    public List<Tank> findByManufacturer(Manufacturer manufacturer) {
-        return findByNameAndManufacturer("", manufacturer);
-    }
-
-    public Page<Tank> findByManufacturer(Manufacturer manufacturer, IPageable pageable) {
-        return findByNameAndManufacturer("", manufacturer, pageable);
     }
 
     @Override

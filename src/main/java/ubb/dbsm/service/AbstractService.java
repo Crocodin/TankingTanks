@@ -1,6 +1,7 @@
 package ubb.dbsm.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import ubb.dbsm.domain.HasID;
 import ubb.dbsm.domain.validator.ValidatorStrategy;
 import ubb.dbsm.exceptions.EntityFoundException;
@@ -15,6 +16,7 @@ public abstract class AbstractService<ID, T extends HasID<ID>, R extends IReposi
     protected ValidatorStrategy<T> validatorStrategy;
 
     @Override
+    @CacheEvict(value = {"manufacturerPages", "tankPages"}, allEntries = true)
     public Optional<T> save(T object) {
         log.debug("Saving object {}", object);
         if (!validatorStrategy.validate(object)) {
@@ -26,6 +28,7 @@ public abstract class AbstractService<ID, T extends HasID<ID>, R extends IReposi
     }
 
     @Override
+    @CacheEvict(value = {"manufacturerPages", "tankPages"}, allEntries = true)
     public Optional<T> update(T object) {
         log.debug("Updating object {}", object);
         if (!validatorStrategy.validate(object)) {
@@ -37,6 +40,7 @@ public abstract class AbstractService<ID, T extends HasID<ID>, R extends IReposi
     }
 
     @Override
+    @CacheEvict(value = {"manufacturerPages", "tankPages"}, allEntries = true)
     public void delete(T entity) throws EntityFoundException {
         log.debug("Deleting object {}", entity);
         this.find(entity.getId()).ifPresentOrElse(
