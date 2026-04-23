@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import org.springframework.stereotype.Controller;
 import ubb.dbsm.Main;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
@@ -21,7 +22,7 @@ import ubb.dbsm.utils.paging.Indexable;
 import ubb.dbsm.utils.paging.Page;
 import ubb.dbsm.utils.paging.Pageable;
 
-
+@Controller
 public class MainController {
     @FXML public Label pageCountLabel;
     @FXML public Label pageCountLabelChildren;

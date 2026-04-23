@@ -1,5 +1,6 @@
 package ubb.dbsm.service.model;
 
+import org.springframework.stereotype.Service;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
 import ubb.dbsm.domain.validator.ValidatorStrategy;
@@ -13,6 +14,7 @@ import ubb.dbsm.utils.paging.Page;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class TankService extends AbstractService<Integer, Tank, ITankPagedRepository> implements IPageService<Tank> {
     public TankService(ITankPagedRepository repository, ValidatorStrategy<Tank> validatorStrategy) {
         this.repository = repository;

@@ -1,17 +1,18 @@
 package ubb.dbsm.service.model;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import ubb.dbsm.domain.Manufacturer;
-import ubb.dbsm.repository.DBRepository.ManufacturerDAO;
 import ubb.dbsm.repository.IPageRepository;
-import ubb.dbsm.repository.IRepository;
 import ubb.dbsm.repository.model.paged.IManufacturerPagedRepository;
 import ubb.dbsm.service.AbstractService;
 import ubb.dbsm.utils.paging.IPageable;
 import ubb.dbsm.utils.paging.Page;
-import ubb.dbsm.utils.paging.Pageable;
 
 import java.util.Optional;
 
+@Slf4j
+@Service
 public class ManufacturerService extends AbstractService<Integer, Manufacturer, IManufacturerPagedRepository> implements IPageRepository<Integer, Manufacturer> {
 
     public ManufacturerService(IManufacturerPagedRepository repository) {
@@ -19,7 +20,7 @@ public class ManufacturerService extends AbstractService<Integer, Manufacturer, 
     }
 
     public Optional<Manufacturer> findByName(String name) {
-        logger.debug("Finding Manufacturer by name: {}", name);
+        log.debug("Finding Manufacturer by name: {}", name);
         return this.repository.findByName(name);
     }
 
