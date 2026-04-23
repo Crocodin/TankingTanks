@@ -1,6 +1,7 @@
 package ubb.dbsm.service.model;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.repository.IPageRepository;
@@ -25,6 +26,7 @@ public class ManufacturerService extends AbstractService<Integer, Manufacturer, 
     }
 
     @Override
+    @Cacheable(value = "manufacturerPages", key = "'manufacturer - ' + #pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<Manufacturer> getPage(IPageable pageable) {
         return this.repository.getPage(pageable);
     }
