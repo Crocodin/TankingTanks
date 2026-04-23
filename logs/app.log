@@ -779,3 +779,127 @@ Caused by: java.lang.ClassNotFoundException: javax.xml.bind.ValidationEventHandl
 2026-04-23 20:14:24 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-04-23 20:14:24 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
 2026-04-23 20:14:24 INFO  ubb.dbsm.Main - Application shutting down
+2026-04-24 00:02:34 INFO  o.s.boot.SpringApplication - Starting application using Java 21.0.10 with PID 18812 (started by codri in E:\GitHub\TankingTanks)
+2026-04-24 00:02:34 INFO  o.s.boot.SpringApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 00:02:34 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-24 00:02:34 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 25 ms. Found 0 JPA repository interfaces.
+2026-04-24 00:02:35 WARN  o.s.c.a.AnnotationConfigApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'cacheManager' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'cacheManager' defined in class path resource [org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.class]: Unsatisfied dependency expressed through method 'cacheManager' parameter 1: Error creating bean with name 'jCacheCacheManager' defined in class path resource [org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.class]: Failed to instantiate [javax.cache.CacheManager]: Factory method 'jCacheCacheManager' threw exception with message: javax/xml/bind/ValidationEventHandler
+2026-04-24 00:02:35 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-04-24 00:02:35 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Failed to initialize dependency 'cacheManager' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'cacheManager' defined in class path resource [org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.class]: Unsatisfied dependency expressed through method 'cacheManager' parameter 1: Error creating bean with name 'jCacheCacheManager' defined in class path resource [org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.class]: Failed to instantiate [javax.cache.CacheManager]: Factory method 'jCacheCacheManager' threw exception with message: javax/xml/bind/ValidationEventHandler
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at ubb.dbsm.Main.init(Main.java:24)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.LauncherImpl.launchApplication1(LauncherImpl.java:817)
+	at javafx.graphics@21.0.9/com.sun.javafx.application.LauncherImpl.lambda$launchApplication$2(LauncherImpl.java:196)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cacheManager' defined in class path resource [org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.class]: Unsatisfied dependency expressed through method 'cacheManager' parameter 1: Error creating bean with name 'jCacheCacheManager' defined in class path resource [org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.class]: Failed to instantiate [javax.cache.CacheManager]: Factory method 'jCacheCacheManager' threw exception with message: javax/xml/bind/ValidationEventHandler
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:795)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:542)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1337)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1167)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	... 12 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jCacheCacheManager' defined in class path resource [org/springframework/boot/autoconfigure/cache/JCacheCacheConfiguration.class]: Failed to instantiate [javax.cache.CacheManager]: Factory method 'jCacheCacheManager' threw exception with message: javax/xml/bind/ValidationEventHandler
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1337)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1167)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:904)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:782)
+	... 22 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.cache.CacheManager]: Factory method 'jCacheCacheManager' threw exception with message: javax/xml/bind/ValidationEventHandler
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:177)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644)
+	... 36 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: javax/xml/bind/ValidationEventHandler
+	at org.ehcache.xml.XmlConfiguration.<init>(XmlConfiguration.java:116)
+	at org.ehcache.xml.XmlConfiguration.<init>(XmlConfiguration.java:92)
+	at org.ehcache.jsr107.EhcacheCachingProvider$ConfigSupplier.getConfiguration(EhcacheCachingProvider.java:328)
+	at org.ehcache.jsr107.EhcacheCachingProvider.getCacheManager(EhcacheCachingProvider.java:134)
+	at org.ehcache.jsr107.EhcacheCachingProvider.getCacheManager(EhcacheCachingProvider.java:85)
+	at org.springframework.boot.autoconfigure.cache.JCacheCacheConfiguration.createCacheManager(JCacheCacheConfiguration.java:101)
+	at org.springframework.boot.autoconfigure.cache.JCacheCacheConfiguration.jCacheCacheManager(JCacheCacheConfiguration.java:83)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:140)
+	... 37 common frames omitted
+Caused by: java.lang.ClassNotFoundException: javax.xml.bind.ValidationEventHandler
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	... 47 common frames omitted
+2026-04-24 00:03:06 INFO  o.s.boot.SpringApplication - Starting application using Java 21.0.10 with PID 9596 (started by codri in E:\GitHub\TankingTanks)
+2026-04-24 00:03:06 INFO  o.s.boot.SpringApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-24 00:03:06 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-24 00:03:06 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 22 ms. Found 0 JPA repository interfaces.
+2026-04-24 00:03:07 INFO  org.ehcache.core.EhcacheManager - Cache 'tankPages' created in EhcacheManager.
+2026-04-24 00:03:07 INFO  org.ehcache.core.EhcacheManager - Cache 'manufacturerPages' created in EhcacheManager.
+2026-04-24 00:03:07 INFO  o.ehcache.jsr107.Eh107CacheManager - Registering Ehcache MBean javax.cache:type=CacheStatistics,CacheManager=file./E./GitHub/TankingTanks/build/resources/main/ehcache.xml,Cache=tankPages
+2026-04-24 00:03:07 INFO  o.ehcache.jsr107.Eh107CacheManager - Registering Ehcache MBean javax.cache:type=CacheStatistics,CacheManager=file./E./GitHub/TankingTanks/build/resources/main/ehcache.xml,Cache=manufacturerPages
+2026-04-24 00:03:07 INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-24 00:03:07 INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.5.2.Final
+2026-04-24 00:03:07 INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-04-24 00:03:08 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-24 00:03:08 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-24 00:03:08 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 668a7b42-5890-4d3e-8842-474a6109442e
+2026-04-24 00:03:08 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-24 00:03:08 WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-24 00:03:09 INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-24 00:03:10 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-24 00:03:10 INFO  o.s.boot.SpringApplication - Started application in 4.63 seconds (process running for 5.417)
+2026-04-24 00:03:10 DEBUG ubb.dbsm.Main - Crating the fxmlLoader
+2026-04-24 00:03:10 DEBUG ubb.dbsm.Main - Loading the fxmlLoader
+2026-04-24 00:03:10 WARN  javafx - Loading FXML document with JavaFX API of version 25 by JavaFX runtime of version 21.0.9
+2026-04-24 00:03:10 DEBUG u.d.r.D.paged.ManufacturerPagedDAO - enter ManufacturerPagedDAO.getPage() with page  number 1 and size 10
+2026-04-24 00:03:11 DEBUG u.d.r.D.paged.ManufacturerPagedDAO - exiting getPage() with 10 items
+2026-04-24 00:03:11 DEBUG ubb.dbsm.Main - Opening main window
+2026-04-24 00:03:14 DEBUG u.d.r.D.paged.TankPagedDAO - findByNameAndManufacturer with Paging with name= and manufacturer=Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+2026-04-24 00:03:15 INFO  u.d.r.D.paged.TankPagedDAO - Found 10 tanks with name like '' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+2026-04-24 00:03:17 DEBUG u.d.r.D.paged.TankPagedDAO - findByNameAndManufacturer with Paging with name= and manufacturer=Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+2026-04-24 00:03:17 INFO  u.d.r.D.paged.TankPagedDAO - Found 1 tanks with name like '' for manufacturer Manufacturer(id=2, name=Volgograd Tractor Plant, yearOfFounding=1930, country=Country(id=2, name=Russia, gdp=null))
+2026-04-24 00:03:21 DEBUG u.d.r.D.paged.TankPagedDAO - findByNameAndManufacturer with Paging with name= and manufacturer=Manufacturer(id=4, name=Vauxhall Motors, yearOfFounding=1857, country=Country(id=4, name=United Kingdom, gdp=null))
+2026-04-24 00:03:21 INFO  u.d.r.D.paged.TankPagedDAO - Found 3 tanks with name like '' for manufacturer Manufacturer(id=4, name=Vauxhall Motors, yearOfFounding=1857, country=Country(id=4, name=United Kingdom, gdp=null))
+2026-04-24 00:03:23 DEBUG u.d.r.D.paged.TankPagedDAO - findByNameAndManufacturer with Paging with name= and manufacturer=Manufacturer(id=5, name=Renault, yearOfFounding=1899, country=Country(id=5, name=France, gdp=null))
+2026-04-24 00:03:23 INFO  u.d.r.D.paged.TankPagedDAO - Found 0 tanks with name like '' for manufacturer Manufacturer(id=5, name=Renault, yearOfFounding=1899, country=Country(id=5, name=France, gdp=null))
+2026-04-24 00:03:24 DEBUG u.d.r.D.paged.TankPagedDAO - findByNameAndManufacturer with Paging with name= and manufacturer=Manufacturer(id=3, name=Krupp, yearOfFounding=1811, country=Country(id=3, name=Germany, gdp=null))
+2026-04-24 00:03:24 INFO  u.d.r.D.paged.TankPagedDAO - Found 1 tanks with name like '' for manufacturer Manufacturer(id=3, name=Krupp, yearOfFounding=1811, country=Country(id=3, name=Germany, gdp=null))
+2026-04-24 00:03:31 DEBUG u.d.r.D.paged.ManufacturerPagedDAO - enter ManufacturerPagedDAO.getPage() with page  number 2 and size 10
+2026-04-24 00:03:31 DEBUG u.d.r.D.paged.ManufacturerPagedDAO - exiting getPage() with 10 items
+2026-04-24 00:03:32 DEBUG u.d.r.D.paged.TankPagedDAO - findByNameAndManufacturer with Paging with name= and manufacturer=Manufacturer(id=17, name=Leonida, yearOfFounding=1943, country=Country(id=30, name=Romania, gdp=null))
+2026-04-24 00:03:32 INFO  u.d.r.D.paged.TankPagedDAO - Found 2 tanks with name like '' for manufacturer Manufacturer(id=17, name=Leonida, yearOfFounding=1943, country=Country(id=30, name=Romania, gdp=null))
+2026-04-24 00:03:34 DEBUG u.d.r.D.paged.TankPagedDAO - findByNameAndManufacturer with Paging with name= and manufacturer=Manufacturer(id=18, name=OKMO, yearOfFounding=1932, country=Country(id=31, name=URRS, gdp=null))
+2026-04-24 00:03:34 INFO  u.d.r.D.paged.TankPagedDAO - Found 1 tanks with name like '' for manufacturer Manufacturer(id=18, name=OKMO, yearOfFounding=1932, country=Country(id=31, name=URRS, gdp=null))
+2026-04-24 00:03:34 DEBUG u.d.r.D.paged.TankPagedDAO - findByNameAndManufacturer with Paging with name= and manufacturer=Manufacturer(id=14, name=Ansaldo, yearOfFounding=1853, country=Country(id=24, name=Italy, gdp=null))
+2026-04-24 00:03:34 INFO  u.d.r.D.paged.TankPagedDAO - Found 2 tanks with name like '' for manufacturer Manufacturer(id=14, name=Ansaldo, yearOfFounding=1853, country=Country(id=24, name=Italy, gdp=null))
+2026-04-24 00:03:36 INFO  ubb.dbsm.Main - Application shutting down, closing resources
+2026-04-24 00:03:36 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-24 00:03:36 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-24 00:03:36 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-24 00:03:36 INFO  org.ehcache.core.EhcacheManager - Cache 'tankPages' removed from EhcacheManager.
+2026-04-24 00:03:36 INFO  org.ehcache.core.EhcacheManager - Cache 'manufacturerPages' removed from EhcacheManager.
+2026-04-24 00:03:36 INFO  ubb.dbsm.Main - Application shutting down
