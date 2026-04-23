@@ -9,6 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Page<T> {
     private List<T> itemsOnPage;
-    private Pageable pageable;
+    private IPageable pageable;
     private long totalItems;
 }

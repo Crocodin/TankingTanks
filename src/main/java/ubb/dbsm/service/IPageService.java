@@ -1,8 +1,8 @@
 package ubb.dbsm.service;
 
 import ubb.dbsm.utils.paging.Page;
-import ubb.dbsm.utils.paging.Pageable;
+import ubb.dbsm.utils.paging.IPageable;
 
 public interface IPageService<T> {
-    Page<T> getPage(Pageable pageable);
+    Page<T> getPage(IPageable pageable);
 }
