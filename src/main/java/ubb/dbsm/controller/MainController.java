@@ -11,29 +11,39 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import ubb.dbsm.Main;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
-import ubb.dbsm.exceptions.DatabaseError;
-import ubb.dbsm.service.model.ManufacturerService;
-import ubb.dbsm.service.model.TankService;
-import ubb.dbsm.utils.paging.Indexable;
-import ubb.dbsm.utils.paging.Page;
-import ubb.dbsm.utils.paging.Pageable;
+import ubb.dbsm.service.ManufacturerService;
+import ubb.dbsm.service.TankService;
 
 @Controller
 public class MainController {
     @FXML public Label pageCountLabel;
+    @FXML public ComboBox<Integer> pageSizeComboBox;
+
     @FXML public Label pageCountLabelChildren;
     @FXML public ComboBox<Integer> pageSizeComboBoxChildren;
+
     @FXML private TableView<Manufacturer> manufacturerTabableView;
     @FXML private TableColumn<Manufacturer, Integer> manufacturerIdColumn;
     @FXML private TableColumn<Manufacturer, String> manufacturerNameColumn, manufacturerCountryColumn;
 
-    @FXML public ComboBox<Integer> pageSizeComboBox;
-    private final Pageable currentPageable = new Pageable(1, 10);
-    private Indexable currentPageableChildren = new Indexable(10);
+
+    private static class PageableTable {
+        int page = 0;
+        int pageSize;
+        boolean hasNext;
+        boolean hasPrevious;
+
+        public PageableTable(int pageSize) {
+            this.pageSize = pageSize;
+        }
+    }
+    private final PageableTable manufacturerPageable = new PageableTable(10);
+    private final PageableTable tankPageable =  new PageableTable(10);
 
     @FXML private TableView<Tank> tankTabableView;
     @FXML private TableColumn<Tank, Integer> tankIdColumn, tankProductionColumn;
@@ -44,8 +54,6 @@ public class MainController {
 
     private final TankService tankService;
     private final ManufacturerService manufacturerService;
-
-    private long totalManufacturers;
 
     public MainController(TankService tankService, ManufacturerService manufacturerService) {
         this.tankService = tankService;
@@ -86,7 +94,7 @@ public class MainController {
         pageSizeComboBox.setItems(pageSizeComboBoxItems);
         pageSizeComboBox.setValue(pageSizeComboBoxItems.getFirst());
         pageSizeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            this.currentPageable.setPageSize(newValue);
+            this.manufacturerPageable.pageSize = newValue;
             Platform.runLater(() -> {
                 this.refreshTables(null);
             });
@@ -96,20 +104,21 @@ public class MainController {
         pageSizeComboBoxChildren.setItems(pageSizeComboBoxChildrenItems);
         pageSizeComboBoxChildren.setValue(pageSizeComboBoxChildrenItems.getFirst());
         pageSizeComboBoxChildren.valueProperty().addListener((observable, oldValue, newValue) -> {
-            this.currentPageableChildren.setPageSize(newValue);
-            Platform.runLater(this::refersTankTable);
+            this.tankPageable.pageSize = newValue;
+            Platform.runLater(this::refreshTankTable);
         });
     }
 
     @FXML public void populateTanks(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1) {
             selectedManufacturer = manufacturerTabableView.getSelectionModel().getSelectedItem();
-            this.resetSelectedTank();
-            currentPageableChildren = new Indexable(currentPageableChildren.getPageSize());
+            System.out.println("Selected Manufacturer: " + selectedManufacturer);
+            this.tankPageable.page = 0;
+            this.refreshTankTable();
         }
         if (selectedManufacturer != null) {
             tankList.clear();
-            this.refersTankTable();
+            this.refreshTankTable();
         }
     }
 
@@ -122,15 +131,12 @@ public class MainController {
         manufacturerList.clear();
         tankList.clear();
 
-        Page<Manufacturer> manufacturerPage = manufacturerService.getPage(this.currentPageable);
-        this.totalManufacturers = manufacturerPage.getTotalItems();
-        manufacturerList.addAll(manufacturerPage.getItemsOnPage());
+        Page<Manufacturer> manufacturerPage = manufacturerService.getPage(manufacturerPageable.page,  manufacturerPageable.pageSize);
+        manufacturerList.addAll(manufacturerPage.getContent());
+        manufacturerPageable.hasNext = manufacturerPage.hasNext();
+        manufacturerPageable.hasPrevious = manufacturerPage.hasPrevious();
 
-        long comp = manufacturerPage.getPageable().getPageSize();
-        if (this.totalManufacturers % comp == 0) {
-            this.pageCountLabel.setText(manufacturerPage.getPageable().getPageNumber() + "/" + (this.totalManufacturers / comp));
-        }
-        else this.pageCountLabel.setText(manufacturerPage.getPageable().getPageNumber() + "/" + (this.totalManufacturers / comp + 1));
+        this.pageCountLabel.setText(manufacturerPageable.page + 1 + "/" + manufacturerPage.getTotalPages());
         this.searchTextField.clear();
     }
 
@@ -147,34 +153,31 @@ public class MainController {
 
     @FXML public void updateTank(ActionEvent actionEvent) {
         if (selectedTank != null) {
-            selectedTank.setName(tankNameTextField.getText());
-            selectedTank.setYearOfProduction(Integer.parseInt(tankProductionTextField.getText()));
             manufacturerService.findByName(tankManufacturerNameTextField.getText()).ifPresentOrElse(
-                    manufacturer -> this.selectedTank.setManufacturer(manufacturer),
-                    () -> Main.showError("Invalid Manufacturer: Couldn't find the Manufacturer " + tankManufacturerNameTextField.getText())
+                    manufacturer -> {
+                        try {
+                            selectedTank.setManufacturer(manufacturer);
+                            selectedTank.setName(tankNameTextField.getText());
+                            selectedTank.setYearOfProduction(Integer.parseInt(tankProductionTextField.getText()));
+                            tankService.update(selectedTank);
+                        } catch (Exception e) {
+                            Platform.runLater(() -> {
+                                Main.showError(e.getMessage());
+                            });
+                        }
+                    },
+                    () -> Platform.runLater(() -> {
+                        Main.showError("Invalid Manufacturer Name!");
+                    })
             );
-            try {
-                if(tankService.update(selectedTank).isEmpty()) {
-                    Main.showError("Invalid tank information");
-                } else {
-                    this.refersTankTable();
-                    Main.showInfo("Tank Updated");
-                }
-            } catch (DatabaseError error) {
-                Main.showError(error.getMessage());
-            }
         }
     }
 
     @FXML public void removeTank(ActionEvent actionEvent) {
         if (selectedTank != null) {
-            try {
-                tankService.delete(selectedTank);
-                this.refersTankTable();
-                Main.showInfo("Tank Deleted");
-            } catch (DatabaseError error) {
-                Main.showError(error.getMessage());
-            }
+            tankService.delete(selectedTank.getId());
+            Platform.runLater(() -> Main.showInfo("Tank Deleted Successfully!"));
+            selectedTank = null;
         }
     }
 
@@ -188,43 +191,33 @@ public class MainController {
         tankManufacturerNameTextField.clear();
     }
 
-    private void refersTankTable() {
+    private void refreshTankTable() {
         this.resetSelectedTank();
         tankList.clear();
 
-        Page<Tank> tankPage = tankService.findByNameAndManufacturer(searchTextField.getText(), selectedManufacturer, currentPageableChildren);
+        Page<Tank> tankPage = tankService.findByNameAndManufacturer(
+                searchTextField.getText(),
+                selectedManufacturer,
+                this.tankPageable.page,
+                this.tankPageable.pageSize
+        );
 
-        tankList.addAll(tankPage.getItemsOnPage());
-
-        long totalTanks = tankPage.getTotalItems();
-        int pageSize = currentPageableChildren.getPageSize();
-        // calculate current page number from stack size (each push = one page forward)
-        int currentPage = currentPageableChildren.getPreviousId().size() + 1;
-        long totalPages = (long) Math.ceil((double) totalTanks / pageSize);
-
-        this.pageCountLabelChildren.setText(currentPage + "/" + totalPages);
+        tankList.addAll(tankPage.getContent());
+        tankPageable.hasNext = tankPage.hasNext();
+        tankPageable.hasPrevious = tankPage.hasPrevious();
+        this.pageCountLabelChildren.setText(this.tankPageable.page + 1 + "/" + tankPage.getTotalPages());
     }
 
     @FXML public void addTank(ActionEvent actionEvent) {
         manufacturerService.findByName(tankManufacturerNameTextField.getText()).ifPresentOrElse(
                 manufacturer -> {
-                    Tank tank = Tank.builder()
-                            .name(tankNameTextField.getText())
-                            .yearOfProduction(Integer.parseInt(tankProductionTextField.getText()))
-                            .manufacturer(manufacturer).build();
                     try {
-                        tankService.save(tank).ifPresentOrElse(
-                                t -> {
-                                    Main.showInfo("Tank added");
-                                    this.refersTankTable();
-                                },
-                                () -> Main.showError("Invalid tank production date")
-                        );
-                    } catch (DatabaseError error) {
-                        Main.showError(error.getMessage());
+                        tankService.save(tankNameTextField.getText(), tankProductionTextField.getText(), manufacturer);
+                    } catch (Exception e) {
+                        Platform.runLater(() -> {Main.showError(e.getMessage());});
                     }
                 },
-                () -> Main.showError("Invalid Manufacturer: Couldn't find the Manufacturer " + tankManufacturerNameTextField.getText())
+                () -> Platform.runLater(() -> Main.showError("Manufacturer couldn't be found"))
         );
     }
 
@@ -235,33 +228,36 @@ public class MainController {
             } else {
                 this.resetSelectedTank();
                 tankList.clear();
-                tankList.addAll(tankService.findByNameAndManufacturer(searchTextField.getText(), selectedManufacturer));
+                tankList.addAll(tankService.findByNameAndManufacturer(searchTextField.getText(), selectedManufacturer, tankPageable.page, tankPageable.pageSize).getContent());
             }
         }
     }
 
     @FXML public void prevPage(ActionEvent actionEvent) {
-        if (this.currentPageable.getPageNumber() <= 1) return;
-        this.currentPageable.decrement();
-        this.refreshTables.fire();
+        if (manufacturerPageable.hasPrevious) {
+            manufacturerPageable.page--;
+            this.refreshTables.fire();
+        }
     }
 
     @FXML public void nextPage(ActionEvent actionEvent) {
-        if ((long) this.currentPageable.getPageSize() * this.currentPageable.getPageNumber() >= this.totalManufacturers) return;
-        this.currentPageable.increment();
-        this.refreshTables.fire();
+        if (manufacturerPageable.hasNext) {
+            manufacturerPageable.page++;
+            this.refreshTables.fire();
+        }
     }
 
     @FXML public void nextPageChildren(ActionEvent actionEvent) {
-        if (tankList.size() < currentPageableChildren.getPageSize()) return;
-        currentPageableChildren.getPreviousId().push(currentPageableChildren.getPageNumber()); // ✅ push here
-        currentPageableChildren.increment();
-        this.refersTankTable();
+        if (tankPageable.hasNext) {
+            tankPageable.page++;
+            this.refreshTankTable();
+        }
     }
 
     @FXML public void prevPageChildren(ActionEvent actionEvent) {
-        if (currentPageableChildren.getPreviousId().isEmpty()) return;
-        currentPageableChildren.decrement(); // just pops, no push
-        this.refersTankTable();
+        if (tankPageable.hasPrevious) {
+            tankPageable.page--;
+            this.refreshTankTable();
+        }
     }
 }
