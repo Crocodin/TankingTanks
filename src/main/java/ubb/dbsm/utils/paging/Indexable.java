@@ -3,10 +3,12 @@ package ubb.dbsm.utils.paging;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Stack;
 
 @Setter
+@ToString
 public class Indexable implements IPageable{
     private int currentId;
     private int nextId;
@@ -26,11 +28,13 @@ public class Indexable implements IPageable{
 
     @Override
     public void increment() {
+        previousId.push(this.currentId);
         this.currentId = nextId;
     }
 
     @Override
     public void decrement() {
+        this.nextId = this.currentId;
         this.currentId = previousId.pop();
     }
 

@@ -10,6 +10,7 @@ import ubb.dbsm.repository.model.paged.ITankPagedRepository;
 import ubb.dbsm.service.AbstractService;
 import ubb.dbsm.service.IPageService;
 import ubb.dbsm.utils.paging.IPageable;
+import ubb.dbsm.utils.paging.Indexable;
 import ubb.dbsm.utils.paging.Page;
 
 import java.util.ArrayList;
@@ -28,9 +29,14 @@ public class TankService extends AbstractService<Integer, Tank, ITankPagedReposi
         return ((ITankRepository) repository).findByNameAndManufacturer(name, manufacturer);
     }
 
-    @Cacheable(value = "tankPages", key = "'tank - ' + #pageable.pageNumber + '-' + #pageable.pageSize + '-' + #manufacturer.name")
     public Page<Tank> findByNameAndManufacturer(String name, Manufacturer manufacturer, IPageable pageable) {
-        return repository.findByNameAndManufacturer(name, manufacturer, pageable);
+        Page<Tank> page = repository.findByNameAndManufacturer(name, manufacturer, pageable);
+
+        if (!page.getItemsOnPage().isEmpty() && pageable instanceof Indexable indexable) {
+            indexable.setNextId(page.getItemsOnPage().getLast().getId());
+        }
+
+        return page;
     }
 
     @Override

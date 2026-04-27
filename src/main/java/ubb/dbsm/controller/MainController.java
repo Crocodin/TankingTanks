@@ -254,7 +254,6 @@ public class MainController {
 
     @FXML public void nextPageChildren(ActionEvent actionEvent) {
         if (tankList.size() < currentPageableChildren.getPageSize()) return;
-        currentPageableChildren.getPreviousId().push(currentPageableChildren.getPageNumber()); // ✅ push here
         currentPageableChildren.increment();
         this.refersTankTable();
     }

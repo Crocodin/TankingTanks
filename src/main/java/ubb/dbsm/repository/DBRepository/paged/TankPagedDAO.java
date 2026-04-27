@@ -1,6 +1,7 @@
 package ubb.dbsm.repository.DBRepository.paged;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import ubb.dbsm.domain.Manufacturer;
@@ -18,10 +19,12 @@ import java.util.List;
 @Repository
 public class TankPagedDAO extends TankDAO implements ITankPagedRepository {
 
+    @Cacheable(value = "tankPages", key = "'tank - ' + #pageable.pageNumber + '-' + #pageable.pageSize + '-' + #manufacturer.name")
     public Page<Tank> findByNameAndManufacturer(String name, Manufacturer manufacturer, IPageable pageable) {
         log.debug("findByNameAndManufacturer with Paging with name={} and manufacturer={}", name, manufacturer);
         int lastId = pageable.getPageNumber();
 
+        System.out.println("Last ID in find tank: " + lastId);
         List<Tank> tankList = em.createQuery("SELECT t FROM Tank t JOIN t.manufacturer m WHERE LOWER(t.name) LIKE LOWER(:name) AND m = :manufacturer AND t.id > :id ORDER BY t.id", Tank.class)
                 .setParameter("name", "%" + name + "%")
                 .setParameter("manufacturer", manufacturer)
