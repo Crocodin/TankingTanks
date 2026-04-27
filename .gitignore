@@ -1,0 +1,6 @@
+./.gradle
+./.idea
+./.junie
+./build
+./out
+**/main/resources/application.properties
