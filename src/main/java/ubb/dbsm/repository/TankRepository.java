@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
 
-
 public interface TankRepository extends JpaRepository<Tank, Integer> {
     @Query("SELECT t FROM Tank t JOIN t.manufacturer m WHERE LOWER(t.name) LIKE LOWER(:name) AND m = :manufacturer")
     Page<Tank> findAllByNameAndManufacturer(
