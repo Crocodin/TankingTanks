@@ -8,12 +8,14 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
 import ubb.dbsm.repository.ManufacturerRepository;
 import ubb.dbsm.repository.TankRepository;
+import ubb.dbsm.utils.AlertUtil;
 
 import java.util.Optional;
 
@@ -41,7 +43,13 @@ public class TankService {
             .build();
 
         log.debug("Saving Tank with name {}", tank.getName());
-        tankRepository.save(tank);
+        try {
+            tankRepository.saveAndFlush(tank);
+            log.debug("Saved Tank with name {}", tank.getName());
+        } catch (ObjectOptimisticLockingFailureException e) {
+            log.error("Saving Tank with name {} failed", tank.getName(), e);
+            AlertUtil.showConflictError();
+        }
     }
 
     @Transactional(readOnly = false)

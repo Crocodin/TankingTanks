@@ -19,6 +19,9 @@ public class Country implements HasID<Integer> {
     @Column(name = "country_name")
     private String name;
 
-    @Column(name = "GDP")
-    private Integer gdp;
+    @Column(name = "gdp")
+    private float gdp;
+
+    @Override
+    public Integer getId() { return id; }
 }

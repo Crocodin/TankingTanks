@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "tank_info")
-public class TankInfo implements HasID<Float> {
+public class TankInfo implements HasID<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tank_info_id")
-    private float id;
+    private int id;
 
     @Column(name = "about")
     private String about;
@@ -20,4 +20,7 @@ public class TankInfo implements HasID<Float> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tank_id")
     private Tank tank;
+
+    @Override
+    public Integer getId() { return id; }
 }

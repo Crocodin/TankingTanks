@@ -6,12 +6,10 @@ import lombok.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Getter
+@Data
 @Builder
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "tank")
 public class Tank implements HasID<Integer> {
@@ -29,4 +27,11 @@ public class Tank implements HasID<Integer> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
+
+    @Version
+    @Column(name = "version")
+    private int version;
+
+    @Override
+    public Integer getId() { return id; }
 }

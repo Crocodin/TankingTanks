@@ -19,10 +19,14 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Lombok
     implementation("org.projectlombok:lombok:1.18.42")
     annotationProcessor("org.projectlombok:lombok:1.18.42")
+
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+    testImplementation("org.projectlombok:lombok:1.18.42")
 
     // SQL Server
     implementation("com.microsoft.sqlserver:mssql-jdbc:13.2.1.jre11")

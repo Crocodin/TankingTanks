@@ -3,9 +3,11 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="005-alter-GDP-country" author="Crocodin">
+        <sql>ALTER TABLE country DROP CONSTRAINT DF_country_gdp</sql>
         <modifyDataType tableName="country" columnName="gdp" newDataType="real"/>
+        <sql>ALTER TABLE country ADD CONSTRAINT DF_country_gdp DEFAULT 35 FOR gdp</sql>
     </changeSet>
 </databaseChangeLog>

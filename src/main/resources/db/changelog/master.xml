@@ -12,4 +12,5 @@
     <include file="db/changelog/changes/004-insert-into-tank_info.xml"/>
     <include file="db/changelog/changes/005-alter-GDP-country.xml"/>
     <include file="db/changelog/changes/006-add-index-tank-name.xml"/>
+    <include file="db/changelog/changes/007-add-column-version-tank.xml"/>
 </databaseChangeLog>
