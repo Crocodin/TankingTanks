@@ -23,9 +23,4 @@ public class Manufacturer implements HasID<Integer> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "headquarters_country_id")
     private Country country;
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
 }

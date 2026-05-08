@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="001-create-country" author="Crocodin">
+        <createTable tableName="country">
+            <column name="country_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="country_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-create-manufacturer" author="Crocodin">
+        <createTable tableName="manufacturer">
+            <column name="manufacturer_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="manufacturer_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="founded_year" type="INT"/>
+            <column name="headquarters_country_id" type="INT">
+                <constraints foreignKeyName="fk_manufacturer_country"
+                             referencedTableName="country"
+                             referencedColumnNames="country_id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="001-create-tank" author="Crocodin">
+        <createTable tableName="tank">
+            <column name="tank_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tank_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="made_date_year" type="INT"/>
+            <column name="manufacturer_id" type="INT">
+                <constraints foreignKeyName="fk_tank_manufacturer"
+                             referencedTableName="manufacturer"
+                             referencedColumnNames="manufacturer_id"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint
+                tableName="tank"
+                columnNames="manufacturer_id, tank_name"
+                constraintName="UQ_tank_manufacturer_name"/>
+    </changeSet>
+
+</databaseChangeLog>

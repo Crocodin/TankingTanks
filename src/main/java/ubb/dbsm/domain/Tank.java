@@ -29,9 +29,4 @@ public class Tank implements HasID<Integer> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "manufacturer_id")
     private Manufacturer manufacturer;
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
 }

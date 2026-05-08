@@ -1,12 +1,12 @@
 package ubb.dbsm.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Getter
-@ToString
+@Data
 @NoArgsConstructor
 @Entity
 @Table(name = "country")
@@ -21,9 +21,4 @@ public class Country implements HasID<Integer> {
 
     @Column(name = "GDP")
     private Integer gdp;
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
 }
