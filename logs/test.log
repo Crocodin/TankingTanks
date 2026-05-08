@@ -365,3 +365,14 @@ Caused by: org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$Data
 10:20:32 INFO  ubb.dbsm.OptimisticLockingTest - [User B] Attempting to save with stale version = 0...
 10:20:32 WARN  ubb.dbsm.OptimisticLockingTest - [User B] CONFLICT DETECTED! Update rejected by the database.
 10:20:32 INFO  ubb.dbsm.OptimisticLockingTest - TEST PASSED
+11:03:50 INFO  ubb.dbsm.OptimisticLockingTest - Starting OptimisticLockingTest using Java 21.0.10 with PID 3948 (started by codri in E:\GitHub\TankingTanks)
+11:03:50 INFO  ubb.dbsm.OptimisticLockingTest - No active profile set, falling back to 1 default profile: "default"
+11:03:54 WARN  org.hibernate.orm.deprecation - HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+11:03:56 INFO  ubb.dbsm.OptimisticLockingTest - Started OptimisticLockingTest in 5.849 seconds (process running for 7.069)
+11:03:57 INFO  ubb.dbsm.OptimisticLockingTest - OPTIMISTIC LOCKING DEMO
+11:03:57 INFO  ubb.dbsm.OptimisticLockingTest - [User A] Loaded tank: 'Test Tank' | version = 0
+11:03:57 INFO  ubb.dbsm.OptimisticLockingTest - [User B] Loaded tank: 'Test Tank' | version = 0
+11:03:57 INFO  ubb.dbsm.OptimisticLockingTest - [User A] Saved successfully! | version = 1
+11:03:57 INFO  ubb.dbsm.OptimisticLockingTest - [User B] Attempting to save with stale version = 0...
+11:03:57 WARN  ubb.dbsm.OptimisticLockingTest - [User B] CONFLICT DETECTED! Update rejected by the database.
+11:03:57 INFO  ubb.dbsm.OptimisticLockingTest - TEST PASSED

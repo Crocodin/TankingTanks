@@ -20,7 +20,7 @@ public class Country implements HasID<Integer> {
     private String name;
 
     @Column(name = "gdp")
-    private float gdp;
+    private Float gdp;
 
     @Override
     public Integer getId() { return id; }

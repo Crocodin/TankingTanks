@@ -2,9 +2,9 @@ package ubb.dbsm.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SoftDelete;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -12,6 +12,7 @@ import java.sql.SQLException;
 @NoArgsConstructor
 @Entity
 @Table(name = "tank")
+@SoftDelete(columnName = "is_deleted")
 public class Tank implements HasID<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,15 @@ public class Tank implements HasID<Integer> {
     @Version
     @Column(name = "version")
     private int version;
+
+    @Column(name = "is_deleted", insertable = false, updatable = false)
+    private Boolean isDeleted;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
+    @Column(name = "deleted_by")
+    private String deletedBy;
 
     @Override
     public Integer getId() { return id; }

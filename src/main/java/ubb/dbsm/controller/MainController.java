@@ -11,11 +11,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import ubb.dbsm.Main;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
+import ubb.dbsm.domain.User;
 import ubb.dbsm.service.ManufacturerService;
 import ubb.dbsm.service.TankService;
 
@@ -31,6 +33,7 @@ public class MainController {
     @FXML private TableColumn<Manufacturer, Integer> manufacturerIdColumn;
     @FXML private TableColumn<Manufacturer, String> manufacturerNameColumn, manufacturerCountryColumn;
 
+    @Setter User loggedUser;
 
     private static class PageableTable {
         int page = 0;
@@ -54,6 +57,7 @@ public class MainController {
 
     private final TankService tankService;
     private final ManufacturerService manufacturerService;
+    private final String user = "Crocodin";
 
     public MainController(TankService tankService, ManufacturerService manufacturerService) {
         this.tankService = tankService;
@@ -78,6 +82,18 @@ public class MainController {
                     return new SimpleStringProperty(manufacturer.getCountry().getName());
                 }
         );
+
+        tankTabableView.setRowFactory(tv -> new TableRow<>() {
+            @Override
+            protected void updateItem(Tank tank, boolean empty) {
+                super.updateItem(tank, empty);
+                if (tank != null && tank.getIsDeleted()) {
+                    setStyle("-fx-text-fill: white; -fx-strikethrough: true; -fx-background-color: red;");
+                } else {
+                    setStyle("");
+                }
+            }
+        });
 
         tankTabableView.setItems(tankList);
         tankIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -175,7 +191,7 @@ public class MainController {
 
     @FXML public void removeTank(ActionEvent actionEvent) {
         if (selectedTank != null) {
-            tankService.delete(selectedTank.getId());
+            tankService.delete(selectedTank.getId(), user);
             Platform.runLater(() -> Main.showInfo("Tank Deleted Successfully!"));
             selectedTank = null;
         }
@@ -199,7 +215,8 @@ public class MainController {
                 searchTextField.getText(),
                 selectedManufacturer,
                 this.tankPageable.page,
-                this.tankPageable.pageSize
+                this.tankPageable.pageSize,
+                loggedUser.isAdmin()
         );
 
         tankList.addAll(tankPage.getContent());
@@ -228,7 +245,7 @@ public class MainController {
             } else {
                 this.resetSelectedTank();
                 tankList.clear();
-                tankList.addAll(tankService.findByNameAndManufacturer(searchTextField.getText(), selectedManufacturer, tankPageable.page, tankPageable.pageSize).getContent());
+                tankList.addAll(tankService.findByNameAndManufacturer(searchTextField.getText(), selectedManufacturer, tankPageable.page, tankPageable.pageSize, loggedUser.isAdmin()).getContent());
             }
         }
     }

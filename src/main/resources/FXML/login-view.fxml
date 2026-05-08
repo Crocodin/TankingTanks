@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<?import javafx.scene.control.PasswordField?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ubb.dbsm.controller.LoginController">
+   <children>
+      <VBox alignment="CENTER" layoutX="8.0" layoutY="7.0" prefHeight="385.0" prefWidth="586.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
+         <children>
+            <Label text="Tanking Tanks">
+               <font>
+                  <Font name="Bell MT Bold" size="48.0" />
+               </font>
+            </Label>
+            <Label text="dbsm for tank lovers">
+               <font>
+                  <Font name="Bell MT Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="usernameBox" promptText="username">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="100.0" right="100.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <PasswordField fx:id="passwordBox" promptText="password">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="100.0" right="100.0" top="5.0" />
+               </VBox.margin>
+            </PasswordField>
+            <Button mnemonicParsing="false" text="Login" onAction="#loginPressed">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -29,7 +29,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         log.debug("Crating the fxmlLoader");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/login-view.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);  // Spring creates the controller
 
         log.debug("Loading the fxmlLoader");
@@ -38,7 +38,7 @@ public class Main extends Application {
         stage.setTitle("TankingTanks");
         stage.setResizable(false);
 
-        log.debug("Opening main window");
+        log.debug("Opening login window");
         stage.show();
     }
 

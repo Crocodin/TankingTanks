@@ -17,7 +17,7 @@ public class TankInfo implements HasID<Integer> {
     @Column(name = "about")
     private String about;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tank_id")
     private Tank tank;
 

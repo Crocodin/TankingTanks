@@ -17,6 +17,7 @@ import ubb.dbsm.repository.ManufacturerRepository;
 import ubb.dbsm.repository.TankRepository;
 import ubb.dbsm.utils.AlertUtil;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Slf4j
@@ -27,9 +28,15 @@ public class TankService {
     private final ManufacturerRepository manufacturerRepository;
     private final TankRepository tankRepository;
 
-    @Cacheable(value = "tanks")
-    public Page<Tank> findByNameAndManufacturer(String name, Manufacturer manufacturer, int pageNumber, int pageSize) {
+    @Cacheable(value = "tanks", key = "#name + #manufacturer.id + #pageNumber + #isAdmin")
+    public Page<Tank> findByNameAndManufacturer(String name, Manufacturer manufacturer, int pageNumber, int pageSize, boolean isAdmin) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        System.out.println("++++++++++++++ " + isAdmin);
+        if (isAdmin) {
+            log.debug("Searching for manufacturer with name {} as admin", name);
+            return tankRepository.findAllByNameAndManufacturerIncludingDeleted( '%' + name + '%', manufacturer.getId(), pageable);
+        }
+        log.debug("Searching for manufacturer with name {} as user", name);
         return tankRepository.findAllByNameAndManufacturer("%" + name + "%", manufacturer, pageable);
     }
 
@@ -64,5 +71,16 @@ public class TankService {
     public void delete(int id) {
         log.debug("Deleting Tank with id {}", id);
         tankRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = false)
+    @CacheEvict(value = "tanks", allEntries = true)
+    public void delete(int id, String username) {
+        log.debug("Deleting Tank with id {}, by {}", id, username);
+        Tank tank = tankRepository.findById(id).orElseThrow();
+        tank.setDeletedAt(LocalDateTime.now());
+        tank.setDeletedBy(username);
+        tankRepository.save(tank);
+        tankRepository.delete(tank); // @SoftDelete handles the actual flag
     }
 }

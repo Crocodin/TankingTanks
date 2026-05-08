@@ -9,6 +9,7 @@ import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
 
 public interface TankRepository extends JpaRepository<Tank, Integer> {
+
     @Query("SELECT t FROM Tank t JOIN t.manufacturer m WHERE LOWER(t.name) LIKE LOWER(:name) AND m = :manufacturer")
     Page<Tank> findAllByNameAndManufacturer(
             @Param("name") String name,
@@ -16,5 +17,12 @@ public interface TankRepository extends JpaRepository<Tank, Integer> {
             Pageable pageable
     );
 
-    boolean existsByNameAndManufacturer(String name, Manufacturer manufacturer);
+    @Query(value = "SELECT t.* FROM tank t JOIN manufacturer m ON t.manufacturer_id = m.manufacturer_id WHERE LOWER(t.tank_name) LIKE LOWER(:name) AND t.manufacturer_id = :manufacturerId",
+            countQuery = "SELECT COUNT(*) FROM tank t WHERE LOWER(t.tank_name) LIKE LOWER(:name) AND t.manufacturer_id = :manufacturerId",
+            nativeQuery = true)
+    Page<Tank> findAllByNameAndManufacturerIncludingDeleted(
+            @Param("name") String name,
+            @Param("manufacturerId") Integer manufacturerId,
+            Pageable pageable
+    );
 }
