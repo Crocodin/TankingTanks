@@ -1,6 +1,6 @@
 <config xmlns="http://www.ehcache.org/v3">
 
-    <cache alias="manufacturerPages">
+    <cache alias="manufacturers">
         <expiry>
             <ttl unit="minutes">30</ttl>
         </expiry>
@@ -9,7 +9,16 @@
         </resources>
     </cache>
 
-    <cache alias="tankPages">
+    <cache alias="manufacturer">
+        <expiry>
+            <ttl unit="minutes">30</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">50</heap>
+        </resources>
+    </cache>
+
+    <cache alias="tanks">
         <expiry>
             <ttl unit="minutes">30</ttl>
         </expiry>

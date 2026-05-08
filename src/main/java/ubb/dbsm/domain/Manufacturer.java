@@ -3,9 +3,8 @@ package ubb.dbsm.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
+@Data
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "manufacturer")
 public class Manufacturer implements HasID<Integer> {
@@ -25,7 +24,5 @@ public class Manufacturer implements HasID<Integer> {
     private Country country;
 
     @Override
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId() { return id; }
 }

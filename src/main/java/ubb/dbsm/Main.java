@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +16,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @Slf4j
 @SpringBootApplication
+@RequiredArgsConstructor
 @EnableCaching
 public class Main extends Application {
     private ConfigurableApplicationContext springContext;

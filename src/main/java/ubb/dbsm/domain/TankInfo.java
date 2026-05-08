@@ -2,25 +2,24 @@ package ubb.dbsm.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "country")
-public class Country implements HasID<Integer> {
+@Table(name = "tank_info")
+public class TankInfo implements HasID<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "country_id")
+    @Column(name = "tank_info_id")
     private int id;
 
-    @Column(name = "country_name")
-    private String name;
+    @Column(name = "about")
+    private String about;
 
-    @Column(name = "gdp")
-    private float gdp;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tank_id")
+    private Tank tank;
 
     @Override
     public Integer getId() { return id; }

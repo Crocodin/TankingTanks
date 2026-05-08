@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="004-insert-into-tank_info" author="Crocodin">
+        <insert tableName="tank_info">
+            <column name="tank_id" value="2"/>
+            <column name="about" value="The T-26 tank was a Soviet light tank used during many conflicts of the Interwar period and in World War II."/>
+        </insert>
+        <insert tableName="tank_info">
+            <column name="tank_id" value="3"/>
+            <column name="about" value="The T-64 is a Soviet tank manufactured in Kharkiv, and designed by Alexander Morozov. The tank was introduced in the early 1960s."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

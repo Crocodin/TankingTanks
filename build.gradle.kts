@@ -19,22 +19,17 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     // Lombok
     implementation("org.projectlombok:lombok:1.18.42")
     annotationProcessor("org.projectlombok:lombok:1.18.42")
 
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.42")
+    testImplementation("org.projectlombok:lombok:1.18.42")
+
     // SQL Server
     implementation("com.microsoft.sqlserver:mssql-jdbc:13.2.1.jre11")
-
-//    // Source: https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core
-//    implementation("org.hibernate.orm:hibernate-core:6.5.2.Final")
-//
-//    // Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
-//    implementation("org.apache.logging.log4j:log4j-core:2.25.3")
-//
-//    // Source: https://mvnrepository.com/artifact/com.zaxxer/HikariCP
-//    implementation("com.zaxxer:HikariCP:5.1.0")
 
     // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter")
@@ -48,6 +43,9 @@ dependencies {
         }
     }
     implementation("javax.cache:cache-api:1.1.1")
+
+    // Liquibase
+    implementation("org.liquibase:liquibase-core")
 }
 
 javafx {
