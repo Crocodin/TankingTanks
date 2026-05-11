@@ -11,7 +11,9 @@ This **Database System Manager (DBSM)** handles the core **CRUD operations** req
 > [The database](https://github.com/Crocodin/University_projects/tree/main/semester%203/DB)
 ---
 ## Index
-1. [Run config & about](About.md) <br>
+1. [Run config & about](docs/About.md) <br>
 Information on how to run the app, a small preview and some challenges I faced during the making of the applications.
-2. [Hibernate migration and HikariCP stats](HibernateChanges.md) <br>
+2. [Hibernate migration and HikariCP stats](docs/HibernateChanges.md) <br>
 The process of migration the original app to **Hibernate** and adding _Logs_ via **Log4j2** and using _connection pooling_ via *HikariCP* including some performances statistic between JDBC making a connection for every operation vs connection pooling and _IoC_ via **Spring**.
+3. [Liquibase and soft delete](docs/LiquibaseMigration.md) <br>
+The process of using Liquibase and the usage of soft delete and restoring already deleted entities.

@@ -57,7 +57,6 @@ public class MainController {
 
     private final TankService tankService;
     private final ManufacturerService manufacturerService;
-    private final String user = "Crocodin";
 
     public MainController(TankService tankService, ManufacturerService manufacturerService) {
         this.tankService = tankService;
@@ -191,7 +190,7 @@ public class MainController {
 
     @FXML public void removeTank(ActionEvent actionEvent) {
         if (selectedTank != null) {
-            tankService.delete(selectedTank.getId(), user);
+            tankService.delete(selectedTank.getId(), loggedUser);
             Platform.runLater(() -> Main.showInfo("Tank Deleted Successfully!"));
             selectedTank = null;
         }

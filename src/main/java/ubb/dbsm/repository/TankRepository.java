@@ -3,10 +3,13 @@ package ubb.dbsm.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
+
+import java.util.Optional;
 
 public interface TankRepository extends JpaRepository<Tank, Integer> {
 
@@ -25,4 +28,18 @@ public interface TankRepository extends JpaRepository<Tank, Integer> {
             @Param("manufacturerId") Integer manufacturerId,
             Pageable pageable
     );
+
+    @Modifying
+    @Query(value = "DELETE FROM tank WHERE tank_id = :id", nativeQuery = true)
+    void hardDeleteById(@Param("id") Integer id);
+
+    @Query(value = "SELECT * FROM tank WHERE LOWER(tank_name) = LOWER(:name) AND manufacturer_id = :manufacturerId AND is_deleted = 1", nativeQuery = true)
+    Optional<Tank> findDeletedByNameAndManufacturer(
+            @Param("name") String name,
+            @Param("manufacturerId") Integer manufacturerId
+    );
+
+    @Modifying
+    @Query(value = "UPDATE tank SET is_deleted = 0, deleted_at = NULL, deleted_by = NULL WHERE tank_id = :id", nativeQuery = true)
+    void restoreById(@Param("id") Integer id);
 }

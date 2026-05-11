@@ -1,5 +1,5 @@
 <h1>
-  <img src=".readme/tank.png" width="80" style="vertical-align: middle; margin-right: 10px;" alt="tank">
+  <img src="../.readme/tank.png" width="80" style="vertical-align: middle; margin-right: 10px;" alt="tank">
   TankingTanks DBSM
 </h1>
 
@@ -13,7 +13,7 @@ This **Database System Manager (DBSM)** handles the core **CRUD operations** req
 ## 📷 Application Preview
 
 <p align="center">
-  <img src=".readme/app_screenshot.png" alt="TankingTanks App Screenshot" width="700" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+  <img src="../.readme/app_screenshot.png" alt="TankingTanks App Screenshot" width="700" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
 </p>
 
 ### 💻 How to run
@@ -94,7 +94,7 @@ INSERT INTO tank(tank_name, made_date_year, manufacturer_id) VALUES ('M4 Sherman
 2. **The first problem I faced** was realising that I don't know the password to the DB. That was fixed by enabling the `super admin` that for whatever reason was not enabled.
 3. A particularly frustrating issue involved **TCP/IP connectivity**. Initially, I was unable to connect to the database remotely, which led me to investigate the network configuration settings. Did you know that by default is closed? I didn't. To fix this I had to go in the **`SQL Configuration Manager`**. To be able to connect to the DB I set the `IPAll` port to 1344. Using a dynamic port caused connection issues that I could not reliably diagnose at the time, but assigning a static port allowed the connection to work consistently.
 <p align="center">
-  <img src=".readme/sql_manager.png" alt="sal manager imagine" width="400" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+  <img src="../.readme/sql_manager.png" alt="sal manager imagine" width="400" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
 </p>
 
 4. **Learning Through Troubleshooting.** Although these problems were frustrating during development, they ultimately became valuable learning experiences. Troubleshooting configuration issues forced me to better understand how SQL Server networking, authentication, and server configuration actually work. As a result, I gained practical knowledge that will help me avoid similar problems in future projects and improve my overall development skills.

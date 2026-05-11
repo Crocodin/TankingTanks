@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ubb.dbsm.domain.Manufacturer;
 import ubb.dbsm.domain.Tank;
+import ubb.dbsm.domain.User;
 import ubb.dbsm.repository.ManufacturerRepository;
 import ubb.dbsm.repository.TankRepository;
 import ubb.dbsm.utils.AlertUtil;
@@ -42,19 +43,32 @@ public class TankService {
 
     @Transactional(readOnly = false)
     @CacheEvict(value = "tanks", allEntries = true)
-    public void save(String name, String Year, Manufacturer manufacturer) throws DuplicateKeyException, NumberFormatException {
-        Tank tank = Tank.builder()
-            .name(name)
-            .yearOfProduction(Integer.parseInt(Year))
-            .manufacturer(manufacturer)
-            .build();
-
-        log.debug("Saving Tank with name {}", tank.getName());
+    public void save(String name, String year, Manufacturer manufacturer) throws DuplicateKeyException, NumberFormatException {
         try {
-            tankRepository.saveAndFlush(tank);
-            log.debug("Saved Tank with name {}", tank.getName());
+            Optional<Tank> deletedTank = tankRepository.findDeletedByNameAndManufacturer(name, manufacturer.getId());
+
+            if (deletedTank.isPresent()) {
+                log.debug("Tank with name {} already exists but is deleted, restoring it", name);
+                Tank tank = deletedTank.get();
+                tankRepository.restoreById(tank.getId());
+                tank.setDeletedAt(null);
+                tank.setDeletedBy(null);
+                tank.setYearOfProduction(Integer.parseInt(year));
+                tankRepository.save(tank);
+                log.debug("Restored Tank with name {}", name);
+            } else {
+                Tank tank = Tank.builder()
+                        .name(name)
+                        .yearOfProduction(Integer.parseInt(year))
+                        .manufacturer(manufacturer)
+                        .build();
+
+                log.debug("Saving Tank with name {}", tank.getName());
+                tankRepository.saveAndFlush(tank);
+                log.debug("Saved Tank with name {}", tank.getName());
+            }
         } catch (ObjectOptimisticLockingFailureException e) {
-            log.error("Saving Tank with name {} failed", tank.getName(), e);
+            log.error("Saving Tank with name {} failed", name, e);
             AlertUtil.showConflictError();
         }
     }
@@ -75,12 +89,17 @@ public class TankService {
 
     @Transactional(readOnly = false)
     @CacheEvict(value = "tanks", allEntries = true)
-    public void delete(int id, String username) {
-        log.debug("Deleting Tank with id {}, by {}", id, username);
-        Tank tank = tankRepository.findById(id).orElseThrow();
-        tank.setDeletedAt(LocalDateTime.now());
-        tank.setDeletedBy(username);
-        tankRepository.save(tank);
-        tankRepository.delete(tank); // @SoftDelete handles the actual flag
+    public void delete(int id, User loggedUser) {
+        if  (loggedUser.isAdmin()) {
+            log.warn("Admin hard deleting tank with id: {}", id);
+            tankRepository.hardDeleteById(id);
+        } else {
+            log.debug("Soft deleting Tank with id {}, by {}", id, loggedUser.getUsername());
+            Tank tank = tankRepository.findById(id).orElseThrow();
+            tank.setDeletedAt(LocalDateTime.now());
+            tank.setDeletedBy(loggedUser.getUsername());
+            tankRepository.save(tank);
+            tankRepository.delete(tank); // @SoftDelete handles the actual flag
+        }
     }
 }
